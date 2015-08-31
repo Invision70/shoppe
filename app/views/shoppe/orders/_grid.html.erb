@@ -1,0 +1,29 @@
+<%= grid(@orders) do |g|
+
+  g.blank_slate content_tag(:div, "No records found", id: 'flash-notice')
+
+  g.column name: t('shoppe.orders.number'), attribute: 'id', filter: false do |order|
+    link_to order.number, order
+  end
+
+  g.column name: t('shoppe.orders.customer') do |order|
+    order.customer_name
+  end
+
+  g.column name: t('shoppe.orders.status') do |order|
+    status_tag order.status
+  end
+
+  g.column name: t('shoppe.orders.products') do |order|
+    order.order_items.count
+  end
+
+  g.column name: t('shoppe.orders.total') do |order|
+    number_to_currency order.total
+  end
+
+  g.column name: t('shoppe.orders.payment') do |order|
+    boolean_tag order.paid_in_full?, nil, :true_text => number_to_currency(order.amount_paid), :false_text => number_to_currency(order.amount_paid)
+  end
+
+end -%>

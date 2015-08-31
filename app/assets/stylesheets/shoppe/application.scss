@@ -7,6 +7,10 @@
  *= require_self
  */
 
+@import "wice_grid";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
 @import 'variables';
 
 html { font-family:$font; font-size:12px; color:#000; -webkit-font-smoothing:antialiased; background-color:#f7f9fc; overflow-y:scroll}
@@ -170,7 +174,7 @@ header.main {
 				}
 				dd select { width:100%;}
 				dd textarea { height:80px;	}
-				dd p.help { margin-top:15px; color:#333; background:image-url('shoppe/icons/support.svg') no-repeat 0 3px; line-height:1.5; background-size:13px; padding-left:18px; opacity:0.7;}
+				dd p.help { margin-top:15px; color:#9A9A9A; line-height:1.5; background-size:13px;}
 				dd.checkbox { margin-top:14px; font-size:1.1em; color:#999;}
 				dd.checkbox input { float:left; margin-right:10px; margin-top:2px; }
 				dd div.radios {
@@ -584,7 +588,15 @@ table.data {
 		td.desc input[type=text] { width:95%;}
 		td.adjustment input[type=text] { width:50px; margin-right:5px;}
 	}
+    thead tr.wg-filter-row th {
+      padding: 0px;
+      padding-right: 8px;
+      input[type=text] {
+        width: 100%
+      }
+    }
 	tfoot td { background:#5B6270; color:#fff; border:1px solid #5B6270; font-weight:bold; font-size:1.1em;}
+    tbody img.preview {width: 15px;}
 }
 
 //

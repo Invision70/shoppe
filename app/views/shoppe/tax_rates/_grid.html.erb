@@ -1,0 +1,13 @@
+<%= grid(@tax_rates) do |g|
+
+  g.blank_slate content_tag(:div, "No records found", id: 'flash-notice')
+
+  g.column name: t('shoppe.tax_rates.name'), attribute: 'name' do |tax_rate|
+    link_to tax_rate.name, [:edit, tax_rate]
+  end
+
+  g.column name: t('shoppe.tax_rates.rate'), attribute: 'rate' do |tax_rate|
+    number_to_currency tax_rate.rate
+  end
+
+end -%>

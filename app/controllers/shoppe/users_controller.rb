@@ -10,7 +10,7 @@ module Shoppe
     end
 
     def index
-      @users = Shoppe::User.all
+      @users = initialize_grid Shoppe::User.order(:first_name), order: 'id', order_direction: 'desc'
     end
 
     def new

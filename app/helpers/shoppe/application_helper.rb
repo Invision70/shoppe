@@ -32,6 +32,18 @@ module Shoppe
       end
     end
 
+    def nested_product_category_step(categories)
+      if categories.present?
+        String.new.tap do |s|
+          categories.each do |category|
+            s << "<p>"
+              s << category.hierarchy_array.map(&:name).join(" &rarr; ")
+            s << "</p>"
+          end
+        end.html_safe
+      end
+    end
+
     def settings_label(field)
       "<label for='settings_#{field}'>#{t("shoppe.settings.labels.#{field}")}</label>".html_safe
     end

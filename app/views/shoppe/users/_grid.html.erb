@@ -1,0 +1,20 @@
+<%= grid(@users) do |g|
+
+  g.blank_slate content_tag(:div, "No records found", id: 'flash-notice')
+
+  g.column name: 'ID', attribute: 'id' do |user|
+    link_to user.id, [:edit, user]
+  end
+  g.column name: t('shoppe.users.first_name'), attribute: 'first_name' do |user|
+    link_to user.first_name, [:edit, user]
+  end
+
+  g.column name: t('shoppe.users.last_name'), attribute: 'last_name' do |user|
+    link_to user.last_name, [:edit, user]
+  end
+
+  g.column name: t('shoppe.users.email'), attribute: 'email_address' do |user|
+    user.email_address
+  end
+
+end -%>

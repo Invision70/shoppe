@@ -1,0 +1,32 @@
+<%= grid(@customers) do |g|
+
+  g.blank_slate content_tag(:div, "No records found", id: 'flash-notice')
+
+  g.column name: 'ID', attribute: 'id' do |customer|
+    link_to customer.id, customer
+  end
+
+  g.column name: 'First name', attribute: 'first_name' do |customer|
+    link_to customer.first_name, customer
+  end
+
+  g.column name: 'Last name', attribute: 'last_name' do |customer|
+    link_to customer.last_name, customer
+  end
+
+  g.column name: 'Company', attribute: 'company' do |customer|
+    customer.company
+  end
+
+  g.column name: 'Email', attribute: 'email' do |customer|
+    customer.email
+  end
+
+  g.column name: 'Phone', attribute: 'phone' do |customer|
+    customer.phone
+  end
+  g.column name: 'Mobile', attribute: 'mobile' do |customer|
+    customer.mobile
+  end
+
+end -%>

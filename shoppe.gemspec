@@ -24,6 +24,8 @@ Gem::Specification.new do |s|
   s.add_dependency "roo", ">= 1.13.0", "< 1.14"
   s.add_dependency "awesome_nested_set", "~> 3.0.2"
   s.add_dependency "globalize"
+  s.add_dependency "wice_grid", "3.6.0.pre2"
+  s.add_dependency "font-awesome-sass", "~> 4.4.0"
 
   s.add_dependency "nifty-key-value-store", ">= 1.0.1", "< 2.0.0"
   s.add_dependency "nifty-utils", ">= 1.0", "< 1.1"
@@ -35,7 +37,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "coffee-rails", "~> 4"
   s.add_development_dependency "sass-rails", "~> 4.0"
   s.add_development_dependency "sqlite3", "~> 1.3"
-  s.add_development_dependency "mysql2", "~> 0.3"
   s.add_development_dependency "yard", "~> 0"
   s.add_development_dependency "yard-activerecord", "~> 0"
   s.add_development_dependency "markdown", "~> 1.0"

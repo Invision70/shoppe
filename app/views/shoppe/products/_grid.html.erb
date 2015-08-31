@@ -1,0 +1,65 @@
+<%= grid(@products) do |g|
+
+  g.blank_slate content_tag(:div, "No records found", id: 'flash-notice')
+
+  g.column name: 'ID', attribute: 'id' do |product|
+    link_to product.id, [:edit, product]
+  end
+
+  g.column name: t('shoppe.products.default_image') do |product|
+    if product.default_image.present?
+      image_tag product.default_image.file.thumb.url, width: 60
+    end
+  end
+
+  g.column name: t('shoppe.products.name'), attribute: 'name' do |product|
+    link_to product.name, [:edit, product]
+  end
+
+  #g.column name: t('shoppe.products.product_category'), attribute: 'name', assoc: :product_categories, auto_reload: true, allow_multiple_selection: true do |product|
+  #  nested_product_category_step product.product_categories
+  #end
+
+  g.column name: t('shoppe.products.product_category') do |product|
+    nested_product_category_step product.product_categories
+  end
+
+  g.column name: t('shoppe.products.sku'), attribute: 'sku' do |product|
+    product.sku
+  end
+
+  g.column name: t('shoppe.products.price_variants') do |product|
+    if product.has_variants?
+      String.new.tap do |s|
+        for variant in product.variants
+          s << '<p>'
+          s << link_to(variant.name, edit_product_variant_path(product, variant))+': '+number_to_currency(variant.price)
+          if variant.stock_control?
+            s << '&nbsp;';
+            s << boolean_tag(variant.in_stock?, nil, :true_text => variant.stock, :false_text => t('shoppe.products.no_stock'))
+            s << '&nbsp;';
+            s << link_to(t('shoppe.products.edit'), stock_level_adjustments_path(:item_type => variant.class, :item_id => variant.id), :class => 'edit', :rel => 'dialog', :data => {:dialog_width => 700, :dialog_behavior => 'stockLevelAdjustments'})
+          else
+            s << '&#8734;'
+          end
+        end
+        s << '</p>'
+      end.html_safe
+    else
+      number_to_currency product.price
+    end
+  end
+
+  g.column name: t('shoppe.products.stock'), attribute: 'sku' do |product|
+    String.new.tap do |s|
+      if product.stock_control?
+        s << boolean_tag(product.in_stock?, nil, :true_text => product.stock, :false_text => t('shoppe.products.no_stock'))
+        s << '&nbsp;'
+        s << link_to(t('shoppe.products.edit'), stock_level_adjustments_path(:item_type => product.class, :item_id => product.id), :class => 'edit', :rel => 'dialog', :data => {:dialog_width => 700, :dialog_behavior => 'stockLevelAdjustments'})
+      else
+        s << '&#8734;'
+      end
+    end.html_safe
+  end
+
+end -%>

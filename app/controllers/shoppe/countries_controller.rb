@@ -5,7 +5,7 @@ module Shoppe
     before_filter { params[:id] && @country = Shoppe::Country.find(params[:id]) }
 
     def index
-      @countries = Shoppe::Country.ordered
+      @countries = initialize_grid Shoppe::Country, order: 'name'
     end
 
     def new

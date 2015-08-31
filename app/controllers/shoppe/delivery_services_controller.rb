@@ -5,7 +5,7 @@ module Shoppe
     before_filter { params[:id] && @delivery_service = Shoppe::DeliveryService.find(params[:id]) }
 
     def index
-      @delivery_services = Shoppe::DeliveryService.all
+      @delivery_services = initialize_grid Shoppe::DeliveryService
     end
 
     def new

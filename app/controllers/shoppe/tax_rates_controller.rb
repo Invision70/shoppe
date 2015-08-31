@@ -5,7 +5,7 @@ module Shoppe
     before_filter { params[:id] && @tax_rate = Shoppe::TaxRate.find(params[:id]) }
 
     def index
-      @tax_rates = Shoppe::TaxRate.ordered.all
+      @tax_rates = initialize_grid Shoppe::TaxRate
     end
 
     def new

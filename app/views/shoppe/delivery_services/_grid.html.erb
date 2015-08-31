@@ -1,0 +1,25 @@
+<%= grid(@delivery_services) do |g|
+
+  g.blank_slate content_tag(:div, "No records found", id: 'flash-notice')
+
+  g.column name: t('shoppe.delivery_services.name'), attribute: 'name' do |delivery_service|
+    link_to delivery_service.name, [:edit, delivery_service]
+  end
+
+  g.column name: t('shoppe.delivery_services.prices') do |delivery_service|
+    link_to t('shoppe.delivery_services.set_prices'), [delivery_service, :delivery_service_prices]
+  end
+
+  g.column name: t('shoppe.delivery_services.courier'), attribute: 'courier' do |delivery_service|
+    delivery_service.courier
+  end
+
+  g.column name: t('shoppe.delivery_services.active?'), attribute: 'active' do |delivery_service|
+    boolean_tag delivery_service.active?
+  end
+
+  g.column name: t('shoppe.delivery_services.default?') do |delivery_service|
+    boolean_tag delivery_service.default?
+  end
+
+end -%>

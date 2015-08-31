@@ -5,8 +5,7 @@ module Shoppe
     before_filter { params[:id] && @customer = Shoppe::Customer.find(params[:id])}
 
     def index
-      @query = Shoppe::Customer.ordered.page(params[:page]).search(params[:q])
-      @customers = @query.result
+      @customers = initialize_grid Shoppe::Customer, order: 'id', order_direction: 'desc'
     end
 
     def new
@@ -38,11 +37,6 @@ module Shoppe
     def destroy
       @customer.destroy
       redirect_to customers_path, :flash => {:notice => "Customer has been deleted successfully"}
-    end
-
-    def search
-      index
-      render :action => "index"
     end
 
     private
