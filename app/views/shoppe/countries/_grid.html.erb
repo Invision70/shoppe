@@ -1,0 +1,30 @@
+<%# show_filters: :when_filtered %>
+<%= grid(@countries) do |g|
+
+  g.blank_slate content_tag(:div, "No records found", id: 'flash-notice')
+
+  g.column name: t('shoppe.countries.name'), attribute: 'name' do |country|
+    link_to country.name, [:edit, country]
+  end
+
+  g.column name: t('shoppe.countries.iso_alpha_2'), attribute: 'code2' do |country|
+    country.code2
+  end
+
+  g.column name: t('shoppe.countries.iso_alpha_3'), attribute: 'code3' do |country|
+    country.code3
+  end
+
+  g.column name: t('shoppe.countries.continent'), attribute: 'continent' do |country|
+    country.continent
+  end
+
+  g.column name: t('shoppe.countries.tld'), attribute: 'tld' do |country|
+    country.tld
+  end
+
+  g.column name: t('shoppe.countries.eu'), attribute: 'eu_member' do |country|
+    boolean_tag country.eu_member?
+  end
+
+end -%>
