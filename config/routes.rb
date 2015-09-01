@@ -6,7 +6,7 @@ Shoppe::Engine.routes.draw do
     post :search, :on => :collection
     resources :addresses
   end
-  
+
   resources :product_categories do
     resources :localisations, controller: "product_category_localisations"
   end
@@ -40,6 +40,8 @@ Shoppe::Engine.routes.draw do
   resources :users
   resources :countries
   resources :attachments, :only => :destroy
+
+  post 'product_attributes/autocomplete' => 'product_attributes#autocomplete'
 
   get 'settings'=> 'settings#edit'
   post 'settings' => 'settings#update'

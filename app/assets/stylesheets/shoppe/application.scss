@@ -602,6 +602,16 @@ table.data {
 }
 
 //
+//autocomplete
+//
+
+.ui-autocomplete {
+  max-height: 150px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+//
 // pagination
 //
 nav.pagination {

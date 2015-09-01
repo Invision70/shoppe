@@ -61,6 +61,14 @@ module Shoppe
       ActiveSupport::Deprecation.warn("The use of Shoppe::ProductAttribute.public is deprecated. use Shoppe::ProductAttribute.publicly_accessible.")
       self.publicly_accessible
     end
+
+    def self.ransackable_attributes(auth_object = nil)
+      ["key", "value"] + _ransackers.keys
+    end
+
+    def self.ransackable_associations(auth_object = nil)
+      []
+    end
   
   end
 end

@@ -11,18 +11,28 @@ $ ->
   # Automatically focus all fields with the 'focus' class
   $('input.focus').focus()
 
-  $(".datepicker").datepicker
+  $('.datepicker').datepicker
     dateFormat: "yy-mm-dd"
     changeMonth: true
     changeYear: true
     showButtonPanel: true
 
-  $(".datetimepicker").datetimepicker
+  $('.datetimepicker').datetimepicker
     dateFormat: "yy-mm-dd"
     changeMonth: true
     changeYear: true
     showButtonPanel: true
-  
+
+  # Autocomplete input.autocomplete[data-source="route_path_here"]
+  $(document).on 'focus', 'input.autocomplete', (e) ->
+    $(e.target).autocomplete
+      source: (request, response) ->
+        $.post $(e.target).data('source'), { query: request.term }, (data) ->
+          response data
+          return
+        return
+      minLength: 2
+
   # When clicking the order search button, toggle the form
   $('a[rel=searchOrders]').on 'click', ->
     $('div.orderSearch').toggle()
