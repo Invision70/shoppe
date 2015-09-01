@@ -622,3 +622,7 @@ nav.pagination {
 		}
 	}
 }
+label.required:after {
+  content: " *";
+  color: #FF7676;
+}
