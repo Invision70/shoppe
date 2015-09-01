@@ -10,6 +10,18 @@
 $ ->
   # Automatically focus all fields with the 'focus' class
   $('input.focus').focus()
+
+  $(".datepicker").datepicker
+    dateFormat: "yy-mm-dd"
+    changeMonth: true
+    changeYear: true
+    showButtonPanel: true
+
+  $(".datetimepicker").datetimepicker
+    dateFormat: "yy-mm-dd"
+    changeMonth: true
+    changeYear: true
+    showButtonPanel: true
   
   # When clicking the order search button, toggle the form
   $('a[rel=searchOrders]').on 'click', ->
