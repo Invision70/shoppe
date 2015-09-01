@@ -12,7 +12,7 @@
       .splitContainer
         %dl.half
           %dt= f.label :name, t('shoppe.product_category.name')
-          %dd= f.text_field :name, :class => 'focus text'
+          %dd= f.text_field :name, :class => 'focus text', :data => {:permalink => 'product_category_translation_permalink'}
         %dl.half
           %dt= f.label :locale
           %dd= f.select :locale, I18n.available_locales, {selected: @localisation.locale || params[:locale_field]}, {class: "chosen"}

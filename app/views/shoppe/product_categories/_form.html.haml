@@ -4,7 +4,7 @@
   = field_set_tag t('shoppe.product_category.category_details') do
     %dl
       %dt= f.label :name, t('shoppe.product_category.name')
-      %dd= f.text_field :name, :class => 'focus text'
+      %dd= f.text_field :name, :class => 'focus text', :data => {:permalink => 'product_category_permalink'}
     .splitContainer
       %dl.half
         %dt= f.label :permalink, t('shoppe.product_category.permalink')
