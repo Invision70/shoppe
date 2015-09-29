@@ -13,5 +13,9 @@
       - else
         - for cat in @product_categories_without_parent
           %tr
-            %td= link_to cat.name, [:edit, cat]
+            - if cat.leaf?
+              %td= link_to cat.name, [:edit, cat]
+            - else
+              %td
+                %b=link_to cat.name, [:edit, cat]
             = nested_product_category_rows(cat)

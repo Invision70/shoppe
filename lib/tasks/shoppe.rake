@@ -4,6 +4,14 @@ namespace :shoppe do
   task :seed => :environment do
     require File.join(Shoppe.root, 'db', 'seeds')
   end
+
+  desc "Recreate all attachment versions"
+  task :recreate_attachment_versions => :environment do
+    Shoppe::Attachment.find_each do |attach|
+      attach.file.recreate_versions!
+    end
+  end
+
   
   desc "Create a default admin user"
   task :create_default_user => :environment do

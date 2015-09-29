@@ -20,7 +20,9 @@ module Shoppe
                 s << "#{nested_product_category_spacing_adjusted_for_depth child, relative_depth} &#8627; #{link_to(child.name, [:edit, child]).html_safe} (#{t('shoppe.product_category.nesting.current_category')})"
               end
             else
+              s << '<b>' unless child.leaf?
               s << "#{nested_product_category_spacing_adjusted_for_depth child, relative_depth} &#8627; #{link_to(child.name, [:edit, child]).html_safe}"
+              s << '</b>' unless child.leaf?
             end
             s << "</td>"
             s << "</tr>"
