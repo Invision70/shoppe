@@ -1,7 +1,7 @@
 module Shoppe
   class CustomersController < Shoppe::ApplicationController
 
-    before_filter { @active_nav = :customers }  
+    before_filter { @active_nav = :customers }
     before_filter { params[:id] && @customer = Shoppe::Customer.find(params[:id])}
 
     def index
@@ -17,6 +17,25 @@ module Shoppe
       @orders = @customer.orders.ordered.load
     end
 
+    def login
+      sign_in(:customer, @customer)
+      redirect_to '/'
+    end
+
+    def confirm
+      if @customer.confirmed?
+        redirect_to request.referer, :flash => {:notice => "Customer has already confirmed"}
+        return
+      end
+
+      @customer.skip_confirmation!
+      if @customer.save
+        redirect_to request.referer, :flash => {:notice => "Customer has been confirmed"}
+      else
+        redirect_to request.referer, :flash => {:notice => "Customer confirmation error"}
+      end
+    end
+
     def create
       @customer = Shoppe::Customer.new(safe_params)
       if @customer.save
@@ -27,7 +46,13 @@ module Shoppe
     end
 
     def update
-      if @customer.update(safe_params)
+      if safe_params[:password].blank?
+        update_customer = @customer.update_without_password(safe_params)
+      else
+        update_customer = @customer.update(safe_params)
+      end
+
+      if update_customer
         redirect_to @customer, :flash => {:notice => "Customer has been updated successfully"}
       else
         render :action => "edit"
@@ -42,7 +67,7 @@ module Shoppe
     private
   
     def safe_params
-      params[:customer].permit(:first_name, :last_name, :company, :email, :phone, :mobile)
+      params[:customer].permit(:first_name, :last_name, :company, :email, :phone, :mobile, :password, :password_confirmation)
     end
 
   end

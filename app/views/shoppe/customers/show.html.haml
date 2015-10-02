@@ -3,6 +3,8 @@
   %p.buttons
     = link_to "New Address", [:new, @customer, :address], class: "button"
     = link_to "Edit", [:edit, @customer], class: "button"
+    = link_to "Login as #{@customer.name}", [:login, @customer], class: "button"
+    = link_to "Confirm", [:confirm, @customer], method: :post, class: "button", onclick: "return confirm('Confirm?')" unless @customer.confirmed?
   %h2.users
     Customer - #{@customer.name}
 
@@ -14,14 +16,22 @@
         %dd= @customer.full_name
         %dt Company
         %dd= @customer.company.blank? ? '-' : @customer.company
-    .right
-      %dl
         %dt Email Address
         %dd= mail_to @customer.email
         %dt Telephone
         %dd= @customer.phone
         %dt Mobile
         %dd= @customer.mobile
+    .right
+      %dl
+        %dt Confirmed
+        %dd= boolean_tag @customer.confirmed?
+        %dt Last sign in
+        %dd= @customer.last_sign_in_at.to_s(:short)
+        %dt IP Current
+        %dd= @customer.current_sign_in_ip
+        %dt IP Last
+        %dd= @customer.last_sign_in_ip
 
   = field_set_tag "Addresses", :class => 'padded' do
     = render "addresses"

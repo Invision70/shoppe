@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency "globalize"
   s.add_dependency "wice_grid", "3.6.0.pre2"
   s.add_dependency "font-awesome-sass", "~> 4.4.0"
+  s.add_dependency "devise", "~> 3.5"
 
   s.add_dependency "nifty-key-value-store", ">= 1.0.1", "< 2.0.0"
   s.add_dependency "nifty-utils", ">= 1.0", "< 1.1"

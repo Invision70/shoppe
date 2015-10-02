@@ -6,6 +6,8 @@ Shoppe::Engine.routes.draw do
     post :search, :on => :collection
     resources :addresses
   end
+  get "/customers/login/:id", :to => "customers#login", :as => 'login_customer'
+  post "/customers/confirm/:id", :to => "customers#confirm", :as => 'confirm_customer'
 
   resources :product_categories do
     resources :localisations, controller: "product_category_localisations"

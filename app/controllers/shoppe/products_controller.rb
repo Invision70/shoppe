@@ -22,6 +22,7 @@ module Shoppe
     end
 
     def edit
+
     end
 
     def update

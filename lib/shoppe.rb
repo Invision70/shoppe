@@ -13,6 +13,7 @@ require 'nifty/key_value_store'
 require 'nifty/dialog'
 require 'carrierwave'
 require 'wice_grid'
+require 'devise'
 
 module Shoppe
   class << self

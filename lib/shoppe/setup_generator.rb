@@ -4,6 +4,7 @@ module Shoppe
     
     def create_route
       route 'mount Shoppe::Engine => "/shoppe"'
+      route 'devise_for :customers, class_name: "Shoppe::Customer"'
     end
 
   end
