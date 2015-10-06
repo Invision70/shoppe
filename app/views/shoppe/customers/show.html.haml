@@ -26,12 +26,15 @@
       %dl
         %dt Confirmed
         %dd= boolean_tag @customer.confirmed?
-        %dt Last sign in
-        %dd= @customer.last_sign_in_at.to_s(:short)
-        %dt IP Current
-        %dd= @customer.current_sign_in_ip
-        %dt IP Last
-        %dd= @customer.last_sign_in_ip
+        - if @customer.last_sign_in_at
+          %dt Last sign in
+          %dd= @customer.last_sign_in_at.to_s(:short)
+        - if @customer.current_sign_in_ip
+          %dt IP Current
+          %dd= @customer.current_sign_in_ip
+        - if @customer.last_sign_in_ip
+          %dt IP Last
+          %dd= @customer.last_sign_in_ip
 
   = field_set_tag "Addresses", :class => 'padded' do
     = render "addresses"
