@@ -125,6 +125,13 @@ module Shoppe
       read_attribute(:unit_special_price) || ordered_item.try(:special_price) || BigDecimal(0)
     end
 
+    # Is selling price?
+    #
+    # @return [BigDecimal]
+    def unit_special_price?
+      self.unit_special_price > 0 && self.unit_special_price < self.unit_price
+    end
+
     # The cost price for the item
     #
     # @return [BigDecimal]
@@ -132,19 +139,12 @@ module Shoppe
       read_attribute(:unit_cost_price) || ordered_item.try(:cost_price) || BigDecimal(0)
     end
 
-    # Is selling price?
-    #
-    # @return [BigDecimal]
-    def unit_selling_price?
-      self.unit_special_price > 0 && self.unit_special_price < self.unit_price
-    end
-
 
     # The selling price for the item
     #
     # @return [BigDecimal]
     def unit_selling_price
-      self.unit_selling_price? ? self.unit_special_price : self.unit_price
+      self.unit_special_price? ? self.unit_special_price : self.unit_price
     end
 
 
