@@ -11,10 +11,11 @@ module Shoppe
     
     def method_missing(key, _ = nil)
       key = key.to_s.gsub(/\?\z/, '')
+      defaults = I18n.translate("shoppe.settings.defaults")
       if value = @hash[key.to_s]
         value
-      elsif I18n.translate("shoppe.settings.defaults").keys.include?(key.to_sym)
-        I18n.translate("shoppe.settings.defaults")[key.to_sym]
+      elsif defaults.is_a?(Hash) && defaults.keys.include?(key.to_sym)
+        defaults[key.to_sym]
       end
     end
     
