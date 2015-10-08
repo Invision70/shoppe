@@ -13,7 +13,7 @@ module Shoppe
 
     # Validations
     validates :email, :presence => true, :uniqueness => true, :format => {:with => /\A\b[A-Z0-9\.\_\%\-\+]+@(?:[A-Z0-9\-]+\.)+[A-Z]{2,6}\b\z/i}
-    validates :phone, :presence => true, :format => {:with => /\A[+?\d\ \-x\(\)]{7,}\z/}
+    validates :phone, :format => {:with => /\A[+?\d\ \-x\(\)]{7,}\z/}
     validates :first_name, :last_name, :presence => true
 
     # All customers ordered by their ID desending
