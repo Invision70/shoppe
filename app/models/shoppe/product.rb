@@ -102,11 +102,18 @@ module Shoppe
       self.default_variant ? self.default_variant.special_price : read_attribute(:special_price)
     end
 
+    # Is special price?
+    #
+    # @return [Boolean]
+    def special_price?
+      self.special_price > 0 && self.special_price < self.price
+    end
+
     # The selling price for the product
     #
     # @return [BigDecimal]
     def selling_price
-      self.special_price > 0 && self.special_price < self.price ? self.special_price : self.price
+      self.special_price? ? self.special_price : self.price
     end
 
     # Is this product currently in stock?

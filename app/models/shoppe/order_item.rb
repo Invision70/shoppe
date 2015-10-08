@@ -132,12 +132,21 @@ module Shoppe
       read_attribute(:unit_cost_price) || ordered_item.try(:cost_price) || BigDecimal(0)
     end
 
+    # Is selling price?
+    #
+    # @return [BigDecimal]
+    def unit_selling_price?
+      self.unit_special_price > 0 && self.unit_special_price < self.unit_price
+    end
+
+
     # The selling price for the item
     #
     # @return [BigDecimal]
-    def selling_price
-      self.unit_special_price > 0 && self.unit_special_price < self.unit_price ? self.unit_special_price : self.unit_price
+    def unit_selling_price
+      self.unit_selling_price? ? self.unit_special_price : self.unit_price
     end
+
 
     # The tax rate for the item
     #
@@ -164,7 +173,7 @@ module Shoppe
     #
     # @return [BigDecimal]
     def sub_total
-      quantity * selling_price
+      quantity * unit_selling_price
     end
 
     # The total price including tax for the order line
