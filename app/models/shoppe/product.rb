@@ -48,6 +48,7 @@ module Shoppe
     validates :weight, :numericality => true
     validates :price, :numericality => true
     validates :cost_price, :numericality => true, :allow_blank => true
+    validates :special_price, :numericality => true, :allow_blank => true
 
     # Before validation, set the permalink if we don't already have one
     before_validation { self.permalink = self.name.parameterize if self.permalink.blank? && self.name.is_a?(String) }
@@ -91,6 +92,21 @@ module Shoppe
     def price
       # self.default_variant ? self.default_variant.price : read_attribute(:price)
       self.default_variant ? self.default_variant.price : read_attribute(:price)
+    end
+
+    # The special price for the product
+    #
+    # @return [BigDecimal]
+    def special_price
+      # self.default_variant ? self.default_variant.special_price : read_attribute(:special_price)
+      self.default_variant ? self.default_variant.special_price : read_attribute(:special_price)
+    end
+
+    # The selling price for the product
+    #
+    # @return [BigDecimal]
+    def selling_price
+      self.special_price > 0 && self.special_price < self.price ? self.special_price : self.price
     end
 
     # Is this product currently in stock?

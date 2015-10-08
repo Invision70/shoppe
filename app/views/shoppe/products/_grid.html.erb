@@ -33,7 +33,7 @@
       String.new.tap do |s|
         for variant in product.variants
           s << '<p>'
-          s << link_to(variant.name, edit_product_variant_path(product, variant))+': '+number_to_currency(variant.price)
+          s << link_to(variant.name, edit_product_variant_path(product, variant))+': '+number_to_currency(variant.selling_price)
           if variant.stock_control?
             s << '&nbsp;';
             s << boolean_tag(variant.in_stock?, nil, :true_text => variant.stock, :false_text => t('shoppe.products.no_stock'))
@@ -46,7 +46,7 @@
         s << '</p>'
       end.html_safe
     else
-      number_to_currency product.price
+      number_to_currency product.selling_price
     end
   end
 

@@ -5,6 +5,7 @@
       %th.qty= t('shoppe.orders.quantity')
       %th.stock= t('shoppe.orders.stock')
       %th.price= t('shoppe.orders.unit_price')
+      %th.special_price= t('shoppe.orders.special_price')
       %th.tax= t('shoppe.orders.tax')
       %th.total= t('shoppe.orders.sub_total')
       %th.weight= t('shoppe.orders.weight')
@@ -20,6 +21,9 @@
           %td.money-input
             .moneyInput
               = of.text_field :unit_price, :placeholder => number_to_currency(of.object.unit_price, :unit => ''), :class =>'text short'
+          %td.money-input
+            .moneyInput
+              = of.text_field :unit_special_price, :placeholder => number_to_currency(of.object.unit_special_price, :unit => ''), :class =>'text short'
           %td.money-input
             .moneyInput
               = of.text_field :tax_amount, :placeholder => number_to_currency(of.object.tax_amount, :unit => ''), :class =>'text short'
@@ -38,7 +42,7 @@
         %td.product= f.collection_select :delivery_service_id, @order.available_delivery_services, :id, :name
         %td
         %td
-        %td.money-input
+        %td.money-input{:colspan => 2}
           .moneyInput
             = f.text_field :delivery_price, :placeholder => number_to_currency(@order.delivery_price, :unit => ''), :class =>'text short'
         %td.money-input
@@ -51,6 +55,7 @@
       %td
       %td
       %td
+      %td Price:
       %td= text_field_tag '_', number_to_currency(@order.total_before_tax, :unit => ''), :class => 'text short', :disabled => true
       %td= text_field_tag '_', number_to_currency(@order.tax, :unit => ''), :class => 'text short', :disabled => true
       %td= text_field_tag '_', number_to_currency(@order.total, :unit => ''), :class => 'text short', :disabled => true

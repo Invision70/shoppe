@@ -413,6 +413,7 @@ en:
       total: Total
       type: Type
       unit_price: Unit price
+      unit_special_price: Special price
       update_notice: Order has been saved successfully
       use_separate_delivery_address?: Use a separate delivery address?
       weight: Weight
@@ -498,6 +499,8 @@ en:
       on_sale_info:  If checked, this product will be displayed within the public store
       permalink: Permalink
       price: Price
+      special_price: Special Price
+      special_price_info: Is active only when lower than the Price
       price_variants: Price/Variants
       pricing: Pricing
       product_category: Product category
@@ -646,6 +649,8 @@ en:
       on_sale_info: If checked, this product will be displayed within the public store
       permalink: Permalink
       price: Price
+      special_price: Special Price
+      special_price_info: Is active only when lower than the Price
       pricing: Pricing
       product_information: Product Information
       save_variant: Save Variant

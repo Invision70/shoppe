@@ -90,19 +90,26 @@
   - unless @product.has_variants?
     = field_set_tag t('shoppe.products.pricing') do
       .splitContainer
-        %dl.third
+        %dl.quarter
           %dt= f.label :price, t('shoppe.products.price')
           %dd
             .moneyInput
               .currency= Shoppe.settings.currency_unit.html_safe
               = f.text_field :price, :class => 'text'
-        %dl.third
+        %dl.quarter
+          %dt= f.label :special_price, t('shoppe.products.special_price')
+          %dd
+            .moneyInput
+              .currency= Shoppe.settings.currency_unit.html_safe
+              = f.text_field :special_price, :class => 'text'
+              %p=t('shoppe.products.special_price_info')
+        %dl.quarter
           %dt= f.label :cost_price, t('shoppe.products.cost_price')
           %dd
             .moneyInput
               .currency= Shoppe.settings.currency_unit.html_safe
               = f.text_field :cost_price, :class => 'text'
-        %dl.third
+        %dl.quarter
           %dt= f.label :tax_rate_id, t('shoppe.products.tax_rate')
           %dd= f.collection_select :tax_rate_id, Shoppe::TaxRate.ordered, :id, :description, {:include_blank => true}, {:class => 'chosen-with-deselect', :data => {:placeholder => t('shoppe.products.no_tax')}}
 

@@ -18,6 +18,7 @@ module Shoppe
       if self.parent
         self.parent.price = 0
         self.parent.cost_price = 0
+        self.parent.special_price = 0
         self.parent.tax_rate = nil
         self.parent.weight = 0
         self.parent.stock_control = false

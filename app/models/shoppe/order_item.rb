@@ -26,7 +26,7 @@ module Shoppe
 
     # Before saving an order item which belongs to a received order, cache the pricing again if appropriate.
     before_save do
-      if order.received? && (unit_price_changed? || unit_cost_price_changed? || tax_rate_changed? || tax_amount_changed?)
+      if order.received? && (unit_price_changed? || unit_cost_price_changed? || unit_selling_price_changed? || tax_rate_changed? || tax_amount_changed?)
         cache_pricing
       end
     end
@@ -118,11 +118,25 @@ module Shoppe
       read_attribute(:unit_price) || ordered_item.try(:price) || BigDecimal(0)
     end
 
+    # The unit special price for the item
+    #
+    # @return [BigDecimal]
+    def unit_special_price
+      read_attribute(:unit_special_price) || ordered_item.try(:special_price) || BigDecimal(0)
+    end
+
     # The cost price for the item
     #
     # @return [BigDecimal]
     def unit_cost_price
       read_attribute(:unit_cost_price) || ordered_item.try(:cost_price) || BigDecimal(0)
+    end
+
+    # The selling price for the item
+    #
+    # @return [BigDecimal]
+    def selling_price
+      self.unit_special_price > 0 && self.unit_special_price < self.unit_price ? self.unit_special_price : self.unit_price
     end
 
     # The tax rate for the item
@@ -150,7 +164,7 @@ module Shoppe
     #
     # @return [BigDecimal]
     def sub_total
-      quantity * unit_price
+      quantity * selling_price
     end
 
     # The total price including tax for the order line
@@ -165,6 +179,7 @@ module Shoppe
       write_attribute :weight, self.weight
       write_attribute :unit_price, self.unit_price
       write_attribute :unit_cost_price, self.unit_cost_price
+      write_attribute :unit_special_price, self.unit_special_price
       write_attribute :tax_rate, self.tax_rate
     end
 
