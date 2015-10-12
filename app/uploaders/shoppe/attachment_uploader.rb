@@ -27,7 +27,7 @@ class Shoppe::AttachmentUploader < CarrierWave::Uploader::Base
   end
 
   version :preview, :if => :image? do
-    process :resize_to_fill => [540, 720]
+    process :resize_and_pad => [540, 720]
   end
 
   version :big, :if => :image? do
