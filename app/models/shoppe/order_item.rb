@@ -147,7 +147,6 @@ module Shoppe
       self.unit_special_price? ? self.unit_special_price : self.unit_price
     end
 
-
     # The tax rate for the item
     #
     # @return [BigDecimal]
