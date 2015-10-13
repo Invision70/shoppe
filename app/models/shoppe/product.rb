@@ -106,7 +106,7 @@ module Shoppe
     #
     # @return [Boolean]
     def special_price?
-      self.special_price > 0 && self.special_price < self.price
+      self.special_price.present? && self.special_price > 0 && self.special_price < self.price
     end
 
     # The selling price for the product
