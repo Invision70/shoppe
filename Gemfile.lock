@@ -20,12 +20,13 @@ PATH
       rails (>= 4.0.0, < 5.0)
       ransack (>= 1.2.0, < 1.6.3)
       roo (>= 1.13.0, < 1.14)
+      the_sortable_tree (~> 2.5.0)
       wice_grid (= 3.6.0.pre2)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    CFPropertyList (2.3.1)
+    CFPropertyList (2.3.2)
     actionmailer (4.1.4)
       actionpack (= 4.1.4)
       actionview (= 4.1.4)
@@ -282,6 +283,8 @@ GEM
       activesupport
       logutils (~> 0.5)
       props
+    the_sortable_tree (2.5.0)
+      rails (>= 3.1)
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)

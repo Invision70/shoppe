@@ -14,6 +14,7 @@ require 'nifty/dialog'
 require 'carrierwave'
 require 'wice_grid'
 require 'devise'
+require "the_sortable_tree"
 
 module Shoppe
   class << self

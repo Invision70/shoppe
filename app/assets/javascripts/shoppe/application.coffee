@@ -5,6 +5,8 @@
 #= require shoppe/jquery_ui
 #= require shoppe/chosen.jquery
 #= require nifty/dialog
+#= require jquery.ui.nestedSortable
+#= require sortable_tree/initializer
 #= require_tree .
 
 $ ->

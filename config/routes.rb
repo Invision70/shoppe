@@ -11,6 +11,12 @@ Shoppe::Engine.routes.draw do
 
   resources :product_categories do
     resources :localisations, controller: "product_category_localisations"
+
+    collection do
+      get :manage
+      post :rebuild
+    end
+
   end
   resources :products do
     resources :variants

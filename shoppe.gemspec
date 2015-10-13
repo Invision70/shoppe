@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-rails", ">= 3", "< 4.1"
   s.add_dependency "roo", ">= 1.13.0", "< 1.14"
   s.add_dependency "awesome_nested_set", "~> 3.0.2"
+  s.add_dependency "the_sortable_tree", "~> 2.5.0"
   s.add_dependency "globalize"
   s.add_dependency "wice_grid", "3.6.0.pre2"
   s.add_dependency "font-awesome-sass", "~> 4.4.0"

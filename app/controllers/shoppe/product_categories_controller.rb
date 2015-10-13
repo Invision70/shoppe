@@ -1,11 +1,17 @@
 module Shoppe
   class ProductCategoriesController < Shoppe::ApplicationController
 
+    include TheSortableTreeController::Rebuild
+
     before_filter { @active_nav = :product_categories }
     before_filter { params[:id] && @product_category = Shoppe::ProductCategory.find(params[:id]) }
 
     def index
-      @product_categories_without_parent = Shoppe::ProductCategory.without_parent.ordered
+      @product_categories = Shoppe::ProductCategory.nested_set.select('id, name, parent_id').all
+    end
+
+    def show
+      redirect_to edit_product_category_path @product_category
     end
 
     def new
@@ -35,6 +41,10 @@ module Shoppe
     def destroy
       @product_category.destroy
       redirect_to :product_categories, :flash => { :notice => t('shoppe.product_category.destroy_notice') }
+    end
+
+    def sortable_model
+      Shoppe::ProductCategory
     end
 
     private
