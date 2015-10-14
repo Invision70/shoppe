@@ -7,8 +7,12 @@ namespace :shoppe do
 
   desc "Recreate all attachment versions"
   task :recreate_attachment_versions => :environment do
+    total = Shoppe::Attachment.count
+    inc = 0
     Shoppe::Attachment.find_each do |attach|
       attach.file.recreate_versions!
+      inc+=1
+      STDOUT.write("\r#{inc} of #{total}")
     end
   end
 
