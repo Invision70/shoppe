@@ -10,7 +10,11 @@ namespace :shoppe do
     total = Shoppe::Attachment.count
     inc = 0
     Shoppe::Attachment.find_each do |attach|
-      attach.file.recreate_versions!
+      begin
+        attach.file.recreate_versions!
+      rescue Exception=>e
+        puts e
+      end
       inc+=1
       STDOUT.write("\r#{inc} of #{total}")
     end
