@@ -22,9 +22,6 @@
       %dl.cleared
         %dt= f.label :description, t('shoppe.product.description')
         %dd= f.text_area :description, :class => 'text'
-      %dl.cleared
-        %dt= f.label :short_description, t('shoppe.product.short_description')
-        %dd= f.text_area :short_description, :class => 'text'
 
     %p.submit
       - unless @localisation.new_record?
