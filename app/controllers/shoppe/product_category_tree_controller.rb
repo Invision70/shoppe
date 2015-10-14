@@ -8,7 +8,7 @@ module Shoppe
       product_categories = Shoppe::ProductCategory.nested_set.select('id, name, parent_id').all
       @product_categories_json = product_categories
                                      .to_a
-                                     .map { |item| {text: item.name, id: item.id, parent: item.parent.blank? ? '#' : item.parent.id, state: {:checked => selected_categories.include?(item.id), :opened => true}} }
+                                     .map { |item| {text: item.name, id: item.id, parent: item.parent.blank? ? '#' : item.parent.id, state: {:checked => selected_categories.include?(item.id), :opened => false}} }
                                      .to_json
 
       if request.xhr?

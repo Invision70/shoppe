@@ -6,9 +6,15 @@
   $('#product_category_tree').jstree({
     core : {
          'data' : #{@product_categories_json},
+         'animation': 0
     },
     checkbox : {
         tie_selection : false
     },
     plugins : ['checkbox']
+  }).bind("loaded.jstree", function (event, data) {
+    $.each($(this).jstree("get_checked", null, true), function(key, val) {
+      $(this).jstree("open_node", "#"+val);
+    });
+
   });
