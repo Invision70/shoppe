@@ -13,6 +13,12 @@
     },
     plugins : ['checkbox']
   }).bind("loaded.jstree", function (event, data) {
+    $.each($('#product_category_tree').jstree("get_checked", true), function(ind, obj) {
+      $(this).jstree("open_node", "#"+obj.id);
+      $.each(obj.parents, function(p_ind, p_id) {
+        p_id != '#' && $(this).jstree("open_node", "#"+p_id);
+      });
+    });
     $.each($(this).jstree("get_checked", null, true), function(key, val) {
       $(this).jstree("open_node", "#"+val);
     });
