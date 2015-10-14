@@ -2,7 +2,7 @@
 
 class Shoppe::AttachmentUploader < CarrierWave::Uploader::Base
 
-  include CarrierWave::MiniMagick
+  include CarrierWave::RMagick
 
 
   # Where should files be stored?
@@ -22,15 +22,17 @@ class Shoppe::AttachmentUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb, :if => :image? do
-    process :convert => 'png'
+    process :convert => 'jpg'
     process :resize_and_pad => [200, 200]
   end
 
   version :preview, :if => :image? do
+    process :convert => 'jpg'
     process :resize_and_pad => [540, 720]
   end
 
   version :big, :if => :image? do
+    process :convert => 'jpg'
     process :resize_to_fit => [900, 900]
   end
 

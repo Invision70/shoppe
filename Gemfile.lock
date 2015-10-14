@@ -14,12 +14,12 @@ PATH
       jquery-rails (>= 3, < 4.1)
       jstree-rails-4
       kaminari (>= 0.14.1, < 0.17)
-      mini_magick (~> 4.2.7)
       nifty-dialog (>= 1.0.7, < 1.1)
       nifty-key-value-store (>= 1.0.1, < 2.0.0)
       nifty-utils (>= 1.0, < 1.1)
       rails (>= 4.0.0, < 5.0)
       ransack (>= 1.2.0, < 1.6.3)
+      rmagick (~> 2.15.4)
       roo (>= 1.13.0, < 1.14)
       the_sortable_tree (~> 2.5.0)
       wice_grid (= 3.6.0.pre2)
@@ -213,7 +213,6 @@ GEM
       props (>= 1.0.0)
       textutils (>= 0.6.4)
     mime-types (1.25.1)
-    mini_magick (4.2.10)
     mini_portile (0.6.2)
     minitest (5.3.5)
     multi_json (1.10.1)
@@ -257,6 +256,7 @@ GEM
       polyamorous (~> 1.1)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
+    rmagick (2.15.4)
     roo (1.13.2)
       nokogiri
       rubyzip
