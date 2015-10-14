@@ -15,6 +15,7 @@ require 'carrierwave'
 require 'wice_grid'
 require 'devise'
 require "the_sortable_tree"
+require "jstree-rails-4"
 
 module Shoppe
   class << self

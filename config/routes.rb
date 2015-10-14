@@ -16,8 +16,10 @@ Shoppe::Engine.routes.draw do
       get :manage
       post :rebuild
     end
-
   end
+
+  resources :product_category_tree, controller: "product_category_tree", :only => [:edit, :update]
+
   resources :products do
     resources :variants
     resources :localisations, controller: "product_localisations"

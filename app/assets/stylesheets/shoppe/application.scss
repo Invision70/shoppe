@@ -10,6 +10,7 @@
  *= require sortable_tree
  *= require shoppe/sortable
  *= require nested_options
+ *= require jstree-default
  *= require_self
  */
 
@@ -160,6 +161,11 @@ header.main {
 	//
 	form {
 		fieldset {
+
+		  	ul {
+			  list-style: inherit;
+			  list-style-position: inside;
+			}
 
 			.splitContainer { margin:0 25px; margin-bottom:15px; height:50px;}
 			.splitContainer:last-child { margin-bottom:0;}
@@ -642,3 +648,6 @@ label.required:after {
   content: " *";
   color: #FF7676;
 }
+a.edit { background:image-url('shoppe/icons/edit.svg') no-repeat; margin-top:5px; color: #000; background-size:13px; display:inline-block; text-indent:17px;opacity: 0.6;}
+a.edit:hover { opacity: 1}
+.category_tree { margin: 15px 0px;}

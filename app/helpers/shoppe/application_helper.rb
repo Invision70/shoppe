@@ -32,13 +32,13 @@ module Shoppe
       end
     end
 
-    def nested_product_category_step(categories)
+    def nested_product_category_step(categories, tag_list = 'p')
       if categories.present?
         String.new.tap do |s|
           categories.each do |category|
-            s << "<p>"
+            s << "<#{tag_list}>"
               s << category.hierarchy_array.map(&:name).join(" &rarr; ")
-            s << "</p>"
+            s << "</#{tag_list}>"
           end
         end.html_safe
       end

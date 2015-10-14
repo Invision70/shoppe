@@ -1,0 +1,14 @@
+%h3 Categories
+= form_for @product, html: {autocomplete: "off"}, url: product_category_tree_path, method: :put do |f|
+  #product_category_tree.category_tree
+  = f.submit "Save",  :class => 'button green'
+:javascript
+  $('#product_category_tree').jstree({
+    core : {
+         'data' : #{@product_categories_json},
+    },
+    checkbox : {
+        tie_selection : false
+    },
+    plugins : ['checkbox']
+  });

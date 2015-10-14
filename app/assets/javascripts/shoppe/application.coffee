@@ -7,6 +7,7 @@
 #= require nifty/dialog
 #= require jquery.ui.nestedSortable
 #= require sortable_tree/initializer
+#= require jstree
 #= require_tree .
 
 $ ->
@@ -138,7 +139,32 @@ Nifty.Dialog.addBehavior
         success: (data)->
           $('div.table', dialog).replaceWith(data)
       false
-      
+
+#
+# Product category edit dialog beavior
+#
+
+Nifty.Dialog.addBehavior
+  name: 'itemCategoryEdit'
+  onLoad: (dialog,options)->
+    $(dialog).on 'submit', 'form', ->
+      form = $(this)
+      $.ajax
+        url: form.attr('action')
+        method: 'POST'
+        data: {
+          categories: $("#product_category_tree").jstree("get_checked", null, true),
+          "_method": "PUT"
+        }
+        dataType: 'text'
+        success: (data)->
+          window.location = window.location;
+        error: (xhr)->
+          if xhr.status == 422
+            alert xhr.responseText
+          else
+            alert 'Error'
+      false
 #
 # Always fire keyboard shortcuts when focused on fields
 #
