@@ -3,6 +3,7 @@ module Shoppe
 
     before_filter { @active_nav = :products }
     before_filter { params[:id] && @product = Shoppe::Product.root.find(params[:id]) }
+    before_filter { params[:product][:product_category_ids].map! { |category_id| category_id if Shoppe::ProductCategory.find(category_id).leaf? } if params[:product] && params[:product][:product_category_ids] }
 
     def index
       @products = initialize_grid Shoppe::Product.root.includes(:translations, :stock_level_adjustments, :product_categories, :variants), order: 'id', order_direction: 'desc'

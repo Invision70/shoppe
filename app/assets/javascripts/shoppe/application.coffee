@@ -146,6 +146,9 @@ Nifty.Dialog.addBehavior
 
 Nifty.Dialog.addBehavior
   name: 'itemCategoryEdit'
+  beforeLoad: (el,options)->
+    if selected_category = $.param($('.category_ids input').serializeArray())
+      options['url'] = options['url']+'?'+selected_category
   onLoad: (dialog,options)->
     $(dialog).on 'submit', 'form', ->
       form = $(this)
@@ -165,6 +168,11 @@ Nifty.Dialog.addBehavior
           else
             alert 'Error'
       false
+  onClose: ->
+    selected_category = $("#product_category_tree").jstree("get_checked", null, true).map (value) ->
+      $('<input>').attr({'type': 'hidden', 'name': 'product[product_category_ids][]'}).val(value)
+    $('.category_ids').empty().append(selected_category)
+
 #
 # Always fire keyboard shortcuts when focused on fields
 #

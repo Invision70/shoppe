@@ -18,7 +18,7 @@ Shoppe::Engine.routes.draw do
     end
   end
 
-  resources :product_category_tree, controller: "product_category_tree", :only => [:edit, :update]
+  resources :product_category_tree, controller: "product_category_tree", :only => [:new, :edit, :update]
 
   resources :products do
     resources :variants

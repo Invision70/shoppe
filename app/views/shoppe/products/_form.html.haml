@@ -1,12 +1,14 @@
 = form_for @product, :html => {:multipart => true} do |f|
   = f.error_messages
   = field_set_tag  t('shoppe.products.product_information') do
+    .category_ids
+      - f.object.product_category_ids.each do |category_id|
+        = hidden_field_tag 'product[product_category_ids][]', category_id
     %dl
       %dt= f.label :product_categories, t('shoppe.product_category.product_categories').html_safe
       %dd
         %ul=nested_product_category_step(f.object.product_categories, :li)
-        = link_to 'Edit Categories', edit_product_category_tree_path(f.object), :class => 'edit', :rel => 'dialog', :data => {:dialog_width => 700, :dialog_behavior => 'itemCategoryEdit'}
-      -# %dd= f.collection_select :edit_product_path, Shoppe::ProductCategory.ordered, :id, :name, {:prompt => false}, {:class => 'chosen', :multiple => true, :data => {:placeholder => t('shoppe.product_category.choose_product_category') }}
+        = link_to 'Edit Categories', f.object.new_record? ? new_product_category_tree_path : edit_product_category_tree_path(f.object), :class => 'edit', :rel => 'dialog', :data => {:dialog_width => 700, :dialog_behavior => 'itemCategoryEdit'}
 
     .splitContainer
       %dl.third

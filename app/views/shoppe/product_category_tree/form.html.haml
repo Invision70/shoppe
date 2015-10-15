@@ -1,7 +1,5 @@
 %h3 Categories
-= form_for @product, html: {autocomplete: "off"}, url: product_category_tree_path, method: :put do |f|
-  #product_category_tree.category_tree
-  = f.submit "Save",  :class => 'button green'
+#product_category_tree.category_tree
 :javascript
   $('#product_category_tree').jstree({
     core : {
@@ -23,4 +21,4 @@
       $(this).jstree("open_node", "#"+val);
     });
 
-  });
+  })
