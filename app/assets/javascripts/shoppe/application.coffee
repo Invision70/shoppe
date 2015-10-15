@@ -149,25 +149,6 @@ Nifty.Dialog.addBehavior
   beforeLoad: (el,options)->
     if selected_category = $.param($('.category_ids input').serializeArray())
       options['url'] = options['url']+'?'+selected_category
-  onLoad: (dialog,options)->
-    $(dialog).on 'submit', 'form', ->
-      form = $(this)
-      $.ajax
-        url: form.attr('action')
-        method: 'POST'
-        data: {
-          categories: $("#product_category_tree").jstree("get_checked", null, true),
-          "_method": "PUT"
-        }
-        dataType: 'text'
-        success: (data)->
-          window.location = window.location;
-        error: (xhr)->
-          if xhr.status == 422
-            alert xhr.responseText
-          else
-            alert 'Error'
-      false
   onClose: ->
     selected_category = $("#product_category_tree").jstree("get_checked", null, true).map (value) ->
       $('<input>').attr({'type': 'hidden', 'name': 'product[product_category_ids][]'}).val(value)
