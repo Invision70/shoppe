@@ -6,7 +6,6 @@
     = link_to "Login as #{@customer.name}", [:login, @customer], class: "button"
     = link_to "Confirm", [:confirm, @customer], method: :post, class: "button", onclick: "return confirm('Confirm?')" unless @customer.confirmed?
   %h2.users= t('shoppe.customers.customers') + "- #{@customer.name}"
-    Customer - #{@customer.name}
 
 #customer
   .details
