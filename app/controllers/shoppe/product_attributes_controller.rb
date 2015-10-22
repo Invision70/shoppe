@@ -5,7 +5,7 @@ module Shoppe
     before_filter { @product_attribute = Shoppe::ProductAttribute.find_by_key(params[:id]) if params[:id] }
 
     def index
-      @product_attributes = Shoppe::ProductAttribute.group(:key).order(:key).all
+      @product_attributes = Shoppe::ProductAttribute.group(:key).select(:key).order(:key)
     end
 
     def new
@@ -26,7 +26,7 @@ module Shoppe
     end
 
     def edit
-      @attributes = Shoppe::ProductAttribute.where(key: @product_attribute.key).group(:value).order(:updated_at).all
+      @attributes = Shoppe::ProductAttribute.where(key: @product_attribute.key).group(:key, :value, :searchable, :public).select(:key, :value, :searchable, :public)
     end
 
     def update
@@ -53,7 +53,7 @@ module Shoppe
     private
 
     def safe_params
-      product_attributes_defaults = {"public" => 0, "searchable" => 0}
+      product_attributes_defaults = {"public" => false, "searchable" => false}
       params.permit(:product_attributes => [:key])
       params.permit(:product_attributes_array => [:value, :replace_value, :searchable, :public, :remove])
       params[:product_attributes_array].map {|item| item.replace(product_attributes_defaults.merge(item))}
