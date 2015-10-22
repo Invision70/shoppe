@@ -1,8 +1,14 @@
 module Shoppe
   class ProductsController < Shoppe::ApplicationController
 
-    before_filter { @active_nav = :products }
-    before_filter { params[:id] && @product = Shoppe::Product.root.find(params[:id]) }
+    helper_method :product_attributes
+
+    before_filter {
+      @active_nav = :products
+      @attributes = Shoppe::ProductAttribute.grouped_hash
+    }
+
+    before_filter { @product = Shoppe::Product.root.find(params[:id]) if params[:id] }
     before_filter { params[:product][:product_category_ids].map! { |category_id| category_id if Shoppe::ProductCategory.find(category_id).leaf? } if params[:product] && params[:product][:product_category_ids] }
 
     def index
@@ -16,7 +22,7 @@ module Shoppe
     def create
       @product = Shoppe::Product.new(safe_params)
       if @product.save
-        redirect_to :products, :flash => {:notice =>  t('shoppe.products.create_notice') }
+        redirect_to :products, :flash => {:notice => t('shoppe.products.create_notice') }
       else
         render :action => "new"
       end
@@ -52,9 +58,23 @@ module Shoppe
 
     private
 
+    def product_attributes(product)
+      if product.new_record?
+        @product_attributes = safe_params[:product_attributes_array].inject(Hash.new) do |h, (values, attributes)|
+          h[values[:key]] = values[:value]
+          h
+        end
+      else
+        @product_attributes ||= product.product_attributes.group_by(&:key).inject(Hash.new) do |h, (key, attributes)|
+          h[key] = attributes.map(&:value).first
+          h
+        end
+      end
+    end
+
     def safe_params
       file_params = [:file, :parent_id, :role, :parent_type, :file => []]
-      params[:product].permit(:name, :sku, :permalink, :description, :weight, :price, :cost_price, :special_price, :tax_rate_id, :stock_control, :active, :featured, :attachments => [:default_image => file_params, :data_sheet => file_params, :extra => file_params], :product_attributes_array => [:key, :value, :searchable, :public], :product_category_ids => [])
+      params[:product].permit(:name, :sku, :permalink, :description, :weight, :price, :cost_price, :special_price, :tax_rate_id, :stock_control, :active, :featured, :attachments => [:default_image => file_params, :data_sheet => file_params, :extra => file_params], :product_attributes_array => [:key, :value], :product_category_ids => [])
     end
 
   end

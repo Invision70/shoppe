@@ -1,0 +1,12 @@
+- @page_title = "#{t('shoppe.product_attributes.edit_attribute')} #{@product_attribute.key}"
+
+= content_for :header do
+  %p.buttons
+    = link_to t('shoppe.product_attributes.back_to_list'), product_attributes_path, :class => 'button grey'
+  %h2.products #{t('shoppe.product_attributes.edit_attribute')} <b>#{@product_attribute.key}</b>
+
+= form_for @product_attribute, :url => {:action => :update, :id => @product_attribute.key}, :method => :PUT do |f|
+  = render 'form'
+  %p.submit
+    %span.right= link_to t('shoppe.product_attributes.delete') , product_attribute_path(@product_attribute.key), :class => 'button purple', :method => :delete, :data => {:confirm => "Are you sure you wish to remove this attribute?"}
+    = f.submit t('shoppe.product_attributes.save') , :class => 'button green'

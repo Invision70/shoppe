@@ -53,8 +53,17 @@ $ ->
     false
   
   # Remove an attribute from a table
-  $('table.productAttributes tbody').on 'click', 'tr td.remove a', -> 
+  $('table.productAttributes:not(.manage) tbody').not('.manage').on 'click', 'tr td.remove a', ->
     $(this).parents('tr').remove()
+    false
+  # Remove an attribute from a manage table
+  $('table.productAttributes.manage tbody').on 'click', 'tr td.remove a', ->
+    $(this).parents('tr').hide();
+    $(this).parent().append($('<input>').attr({
+      type: 'hidden',
+      name: 'product_attributes_array[][remove]',
+      value: 1
+    }))
     false
   
   # Sorting on the product attribtues table

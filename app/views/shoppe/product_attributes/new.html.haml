@@ -1,0 +1,11 @@
+- @page_title = "#{t('shoppe.product_attributes.new_attribute')}"
+
+= content_for :header do
+  %p.buttons
+    = link_to t('shoppe.product_attributes.back_to_list'), product_attributes_path, :class => 'button grey'
+  %h2.products #{t('shoppe.product_attributes.new_attribute')}</b>
+
+= form_for @product_attribute do |f|
+  = render 'form'
+  %p.submit
+    = f.submit t('shoppe.product_attributes.save') , :class => 'button green'

@@ -17,7 +17,7 @@ module Shoppe
     # All attributes which are public
     scope :publicly_accessible, -> { where(:public => true) }
   
-    # Return the the available options as a hash
+    # Return the available options as a hash
     #
     # @return [Hash]
     def self.grouped_hash

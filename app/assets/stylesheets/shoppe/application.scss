@@ -662,3 +662,10 @@ label.required:after {
 a.edit { background:image-url('shoppe/icons/edit.svg') no-repeat; margin-top:5px; color: #000; background-size:13px; display:inline-block; text-indent:17px;opacity: 0.6;}
 a.edit:hover { opacity: 1}
 .category_tree { margin: 15px 0px;}
+
+.hide {
+  display: none;
+}
+.attribute-selectable {
+  width: 75%;
+}

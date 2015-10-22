@@ -556,6 +556,20 @@ en:
             category_name: Teddy Bears
             qty: 50
 
+    product_attributes:
+      product_attributes: "Product Attributes"
+      new_attribute: "New Attribute"
+      edit_attribute: "Edit Attribute"
+      key: "Key"
+      values: "Values"
+      no_attributes: "No attributes found"
+      back_to_list: "Back to list"
+      delete: "Delete"
+      save: "Save"
+      create_notice: Product attributes has been created successfully
+      update_notice: Product attributes has been updated successfully
+      destroy_notice: Product attributes has been removed successfully
+
     refund:
       intro_html: "To issue a refund for this payment, just enter the amount you wish to refund below and click 'Refund'.  The maximum you can refund is <b>%{amount}</b>."
       issue_refund: Issue Refund
@@ -727,6 +741,7 @@ en:
         orders: Orders
         products: Products
         product_categories: Product Categories
+        product_attributes: Product Attributes
         delivery_services: Delivery Services
         tax_rates: Tax Rates
         users: Users

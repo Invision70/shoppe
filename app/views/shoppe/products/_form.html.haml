@@ -31,27 +31,13 @@
           %tr
             %td= t('shoppe.products.name')
             %td= t('shoppe.products.value')
-            %td.searchable= t('shoppe.products.searchable?')
-            %td.searchable= t('shoppe.products.public?')
-            %td.remove= t('shoppe.products.remove')
-            %td
         %tbody
-          %tr.template{:style => 'display:none;'}
-            %td= text_field_tag 'product[product_attributes_array][][key]', '', :placeholder => t('shoppe.products.name'), :class => 'attribute_name_search', :data => {:source => product_attributes_autocomplete_path}
-            %td= text_field_tag 'product[product_attributes_array][][value]', '', :placeholder => t('shoppe.products.value'), :class => 'attribute_value_search', :data => {:source => product_attributes_autocomplete_path}
-            %td.searchable= check_box_tag 'product[product_attributes_array][][searchable]', '1'
-            %td.searchable= check_box_tag 'product[product_attributes_array][][public]', '1'
-            %td.remove= link_to t('shoppe.remove') , '#', :class => 'button button-mini purple'
-            %td.handle
-          - for attribute in @product.product_attributes
+          - for attribute in @attributes
             %tr
-              %td= text_field_tag 'product[product_attributes_array][][key]', attribute.key, :placeholder => t('shoppe.products.name'), :class => 'attribute_name_search', :data => {:source => product_attributes_autocomplete_path}
-              %td= text_field_tag 'product[product_attributes_array][][value]', attribute.value, :placeholder => t('shoppe.products.value'), :class => 'attribute_value_search', :data => {:source => product_attributes_autocomplete_path}
-              %td.searchable= check_box_tag 'product[product_attributes_array][][searchable]', '1', attribute.searchable?
-              %td.searchable= check_box_tag 'product[product_attributes_array][][public]', '1', attribute.public?
-              %td.remove= link_to t("shoppe.remove"), '#', :class => 'button button-mini purple'
-              %td.handle
-      %p.addAttribute= link_to t('shoppe.products.add_attribute') , '#', :data => {:behavior => 'addAttributeToAttributesTable'}, :class => 'button button-mini green'
+              %td
+                = attribute.first
+                = hidden_field_tag 'product[product_attributes_array][][key]', attribute.first
+              %td= select_tag 'product[product_attributes_array][][value]', options_for_select(attribute.last {|p| [p, p] }, :selected => product_attributes(f.object) ? product_attributes(f.object)[attribute.first] : nil), :include_blank => true, :class => 'chosen-with-deselect attribute-selectable', :data => {:placeholder => '-- no selected --'}
 
   = field_set_tag t('shoppe.products.attachments') do
     .splitContainer
