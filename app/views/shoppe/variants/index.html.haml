@@ -19,7 +19,7 @@
     %tbody
       - if @variants.empty?
         %tr.empty
-          %td{:colspan => 4}= t('shoppe.variants.no_products')
+          %td{:colspan => 5}= t('shoppe.variants.no_products')
       - else
         - for variant in @variants
           %tr

@@ -5,7 +5,7 @@ module Shoppe
 
     before_filter {
       @active_nav = :products
-      @attributes = Shoppe::ProductAttribute.grouped_hash
+      @attributes = Shoppe::ProductAttribute.where(for_variant: false).grouped_hash
     }
 
     before_filter { @product = Shoppe::Product.root.find(params[:id]) if params[:id] }

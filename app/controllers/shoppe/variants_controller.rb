@@ -4,6 +4,7 @@ module Shoppe
     before_filter { @active_nav = :products }
     before_filter { @product = Shoppe::Product.find(params[:product_id]) }
     before_filter { params[:id] && @variant = @product.variants.find(params[:id]) }
+    before_filter { @attributes = Shoppe::ProductAttribute.where(for_variant: true).grouped_hash }
 
     def index
       @variants = @product.variants.ordered
@@ -11,6 +12,10 @@ module Shoppe
 
     def new
       @variant = @product.variants.build
+      @variant.price = @product.price
+      @variant.cost_price = @product.cost_price
+      @variant.special_price = @product.special_price
+      @variant.weight = @product.weight
       render :action => "form"
     end
 
@@ -43,7 +48,7 @@ module Shoppe
     private
 
     def safe_params
-      params[:product].permit(:name, :permalink, :sku, :default_image_file, :price, :cost_price, :special_price, :tax_rate_id, :weight, :stock_control, :active, :default)
+      params[:product].permit(:name, :variant_type, :permalink, :sku, :default_image_file, :price, :cost_price, :special_price, :tax_rate_id, :weight, :stock_control, :active, :default)
     end
 
   end

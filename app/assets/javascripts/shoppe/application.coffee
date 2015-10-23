@@ -11,6 +11,14 @@
 #= require_tree .
 
 $ ->
+
+  permalink = (string, separator = '-') ->
+    string = $.trim string
+    string = string.replace /[^a-zA-Z0-9]/g, separator
+    string = string.replace new RegExp('\\' + separator + '{2,}', 'gmi'), separator
+    string = string.replace new RegExp('(^' + separator + ')|(' + separator + '$)', 'gmi'), ''
+    string.toLowerCase()
+
   # Automatically focus all fields with the 'focus' class
   $('input.focus').focus()
 
@@ -35,6 +43,25 @@ $ ->
           return
         return
       minLength: 2
+
+  # Attribute for variants
+  $('.variantInfo .type select').on 'change', ->
+    $('.variantInfo .name dd .item').hide()
+    if $(this).val()
+      item = $('.variantInfo .name dd .item[data-type="'+$(this).val()+'"]')
+      item.find('select').chosen({width: '100%'})
+      item.show()
+      $('#product_name').val(item.find('select').val()).change()
+    else
+      $('.variantInfo .name dd .item.custom').show()
+  .change()
+
+  $('.variantInfo #product_name').on 'change', ->
+    $('#product_permalink').val(permalink $(this).val())
+    $('#product_sku').val(permalink $(this).val())
+
+  $('.variantInfo input[name="setter_product_name"]').on 'change paste keyup keypress', ->
+    $('#product_name').val($(this).val()).change()
 
   # When clicking the order search button, toggle the form
   $('a[rel=searchOrders]').on 'click', ->

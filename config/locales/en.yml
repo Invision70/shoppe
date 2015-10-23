@@ -566,6 +566,8 @@ en:
       back_to_list: "Back to list"
       delete: "Delete"
       save: "Save"
+      for_variant: "For variant?"
+      for_variant_info: "Active"
       create_notice: Product attributes has been created successfully
       update_notice: Product attributes has been updated successfully
       destroy_notice: Product attributes has been removed successfully

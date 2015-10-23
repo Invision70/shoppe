@@ -41,7 +41,8 @@ module Shoppe
       product.validate :has_at_least_one_product_category
     end
     validates :name, :presence => true
-    validates :permalink, :presence => true, :uniqueness => true, :permalink => true
+    validates :permalink, :presence => true, :permalink => true
+    validates :permalink, :uniqueness => true, :unless => :parent_id?
     validates :sku, :presence => true
     validates :weight, :numericality => true
     validates :price, :numericality => true
