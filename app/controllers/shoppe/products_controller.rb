@@ -59,7 +59,7 @@ module Shoppe
     private
 
     def product_attributes(product)
-      if product.new_record?
+      if product.new_record? && safe_params.present?
         @product_attributes = safe_params[:product_attributes_array].inject(Hash.new) do |h, (values, attributes)|
           h[values[:key]] = values[:value]
           h
@@ -74,7 +74,7 @@ module Shoppe
 
     def safe_params
       file_params = [:file, :parent_id, :role, :parent_type, :file => []]
-      params[:product].permit(:name, :sku, :permalink, :description, :weight, :price, :cost_price, :special_price, :tax_rate_id, :stock_control, :active, :featured, :attachments => [:default_image => file_params, :data_sheet => file_params, :extra => file_params], :product_attributes_array => [:key, :value], :product_category_ids => [])
+      params[:product].permit(:name, :sku, :permalink, :description, :weight, :price, :cost_price, :special_price, :tax_rate_id, :stock_control, :active, :featured, :attachments => [:default_image => file_params, :data_sheet => file_params, :extra => file_params], :product_attributes_array => [:key, :value], :product_category_ids => []) if params[:product]
     end
 
   end
