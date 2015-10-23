@@ -60,7 +60,7 @@ $ ->
     $('#product_permalink').val(permalink $(this).val())
     $('#product_sku').val(permalink $(this).val())
 
-  $('.variantInfo input[name="setter_product_name"]').on 'change paste keyup keypress', ->
+  $('.variantInfo [name="setter_product_name"]').on 'change paste keyup keypress', ->
     $('#product_name').val($(this).val()).change()
 
   # When clicking the order search button, toggle the form
