@@ -26,9 +26,9 @@
           - for attribute in @attributes
             %tr
               %td
-                = text_field_tag 'product_attributes_array[][value]', attribute.value, :placeholder => t('shoppe.products.value'), :class => 'attribute_value_search'
-                = hidden_field_tag 'product_attributes_array[][replace_value]', attribute.value
-              %td.searchable= check_box_tag 'product_attributes_array[][searchable]', '1', attribute.searchable?
-              %td.searchable= check_box_tag 'product_attributes_array[][public]', '1', attribute.public?
+                = text_field_tag 'product_attributes_array[][value]', attribute.last[0].value, :placeholder => t('shoppe.products.value'), :class => 'attribute_value_search'
+                = hidden_field_tag 'product_attributes_array[][replace_value]', attribute.last[0].value
+              %td.searchable= check_box_tag 'product_attributes_array[][searchable]', '1', attribute.last[0].searchable?
+              %td.searchable= check_box_tag 'product_attributes_array[][public]', '1', attribute.last[0].public?
               %td.remove= link_to t("shoppe.remove"), '#', :class => 'button button-mini purple'
     %p.addAttribute= link_to t('shoppe.products.add_value') , '#', :data => {:behavior => 'addAttributeToAttributesTable'}, :class => 'button button-mini green'

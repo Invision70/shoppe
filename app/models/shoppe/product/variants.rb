@@ -39,17 +39,18 @@ module Shoppe
         self.parent.weight = 0
         self.parent.stock_control = false
         self.parent.save if self.parent.changed?
-      end
 
-      unless self.root_variant?
-        self.variant_parent.price = 0
-        self.variant_parent.cost_price = 0
-        self.variant_parent.special_price = 0
-        self.variant_parent.tax_rate = nil
-        self.variant_parent.weight = 0
-        self.variant_parent.stock_control = false
-        self.variant_parent.default = false
-        self.variant_parent.save if self.variant_parent.changed?
+        unless self.root_variant?
+          self.variant_parent.price = 0
+          self.variant_parent.cost_price = 0
+          self.variant_parent.special_price = 0
+          self.variant_parent.tax_rate = nil
+          self.variant_parent.weight = 0
+          self.variant_parent.stock_control = false
+          self.variant_parent.default = false
+          self.variant_parent.save if self.variant_parent.changed?
+        end
+        
       end
 
     end

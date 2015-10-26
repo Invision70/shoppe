@@ -26,7 +26,7 @@ module Shoppe
     end
 
     def edit
-      @attributes = Shoppe::ProductAttribute.where(key: @product_attribute.key).group(:key, :value, :searchable, :public).select(:key, :value, :searchable, :public)
+      @attributes = Shoppe::ProductAttribute.where(key: @product_attribute.key).order(:created_at).group_by(&:value)
     end
 
     def update
