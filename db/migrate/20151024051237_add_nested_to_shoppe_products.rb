@@ -9,8 +9,6 @@ class AddNestedToShoppeProducts < ActiveRecord::Migration
     add_column :shoppe_products, :depth,          :integer
     add_column :shoppe_products, :children_count, :integer
 
-    # This is necessary to update :lft and :rgt columns
-    Shoppe::Product.rebuild!
   end
 
   def self.down
