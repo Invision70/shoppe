@@ -22,7 +22,7 @@
         %dd= f.text_field :sku, :class => 'text'
     %dl
       %dt= f.label :description, t('shoppe.products.description')
-      %dd= f.text_area :description, :class => 'text'
+      %dd= f.text_area :description, :class => 'wysiwyg', :style => 'width: 100%'
 
   = field_set_tag t('shoppe.products.attributes') do
     .margin

@@ -3,12 +3,14 @@
 #= require wice_grid
 #= require shoppe/mousetrap
 #= require shoppe/jquery_ui
+#= require shoppe/jquery_ui_timepicker
 #= require shoppe/chosen.jquery
 #= require nifty/dialog
 #= require jquery.ui.nestedSortable
 #= require sortable_tree/initializer
 #= require jstree
-#= require_tree .
+#= require shoppe/permalink
+#= require shoppe/order_form
 
 $ ->
 

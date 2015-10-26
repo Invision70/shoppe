@@ -2,8 +2,8 @@
 %html
   %head
     %title #{@page_title} - Shoppe
-    = stylesheet_link_tag 'shoppe/application'
-    = javascript_include_tag 'shoppe/application'
+    = stylesheet_link_tag 'shoppe/application', params[:controller]
+    = javascript_include_tag 'shoppe/application', params[:controller]
     = csrf_meta_tags
     :javascript
       window.Shoppe = {}
