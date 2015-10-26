@@ -69,13 +69,6 @@ module Shoppe
       if attrs["extra"]["file"].present? then attrs["extra"]["file"].each { |attr| self.attachments.build(file: attr, parent_id: attrs["extra"]["parent_id"], parent_type: attrs["extra"]["parent_type"]) } end
     end
 
-    # Return the name of the product
-    #
-    # @return [String]
-    def full_name
-      self.parent ? "#{self.parent.name} (#{name})" : name
-    end
-
     # Is this product orderable?
     #
     # @return [Boolean]
@@ -115,20 +108,6 @@ module Shoppe
       self.special_price? ? self.special_price : self.price
     end
 
-    # Is this product currently in stock?
-    #
-    # @return [Boolean]
-    def in_stock?
-      self.default_variant ? self.default_variant.in_stock? : (stock_control? ? stock > 0 : true)
-    end
-
-    # Return the total number of items currently in stock
-    #
-    # @return [Fixnum]
-    def stock
-      self.stock_level_adjustments.sum(:adjustment)
-    end
-
     # Return the first product category
     #
     # @return [Shoppe::ProductCategory]
@@ -140,7 +119,12 @@ module Shoppe
     #
     # @return [String]
     def default_image
-      self.attachments.for("default_image")
+      default_image = self.attachments.for('default_image')
+      if self.parent_id? && default_image.blank?
+        self.parent.attachments.for('default_image')
+      else
+        default_image
+      end
     end
 
     # Set attachment for the default_image role

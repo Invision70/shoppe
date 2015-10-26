@@ -11,25 +11,48 @@
   %table.data
     %thead
       %tr
-        %th{:width => '20%'}= t('shoppe.variants.sku')
         %th{:width => '50%'}= t('shoppe.variants.name')
+        %th{:width => '20%'}= t('shoppe.variants.sku')
         %th{:width => '15%'}= t('shoppe.variants.price')
         %th{:width => '15%'}= t('shoppe.variants.special_price')
+        %th{:width => '15%'}= t('shoppe.variants.default')
         %th{:width => '15%'}= t('shoppe.variants.stock')
     %tbody
       - if @variants.empty?
         %tr.empty
-          %td{:colspan => 5}= t('shoppe.variants.no_products')
+          %td{:colspan => 6}= t('shoppe.variants.no_products')
       - else
         - for variant in @variants
           %tr
-            %td= variant.sku
-            %td= link_to variant.name, edit_product_variant_path(@product, variant)
-            %td= number_to_currency variant.price
-            %td= number_to_currency variant.special_price
             %td
-              - if variant.stock_control?
-                %span.float-right= link_to t('shoppe.edit'), stock_level_adjustments_path(:item_type => variant.class, :item_id => variant.id), :class => 'edit', :rel => 'dialog', :data => {:dialog_width => 700, :dialog_behavior => 'stockLevelAdjustments'}
-                = boolean_tag(variant.in_stock?, nil, :true_text => variant.stock, :false_text => t('shoppe.variants.no_stock'))
+              - unless variant.root_variant?
+                &rarr;
+              = "#{variant.variant_type}: #{link_to variant.name, edit_product_variant_path(@product, variant)}".html_safe
+            %td= variant.full_sku
+            %td
+              - if variant.leaf?
+                = number_to_currency(variant.price)
               - else
-                &#8734;
+                &mdash;
+            %td
+              - if variant.leaf?
+                = number_to_currency(variant.special_price)
+              - else
+                &mdash;
+            %td
+              - if variant.leaf?
+                = boolean_tag(variant.default)
+              - else
+                &mdash;
+            %td
+              - unless variant.root_variant?
+                - if variant.stock_control?
+                  %span.float-right= link_to t('shoppe.edit'), stock_level_adjustments_path(:item_type => variant.class, :item_id => variant.id), :class => 'edit', :rel => 'dialog', :data => {:dialog_width => 700, :dialog_behavior => 'stockLevelAdjustments'}
+                  = boolean_tag(variant.in_stock?, nil, :true_text => variant.stock, :false_text => t('shoppe.variants.no_stock'))
+                - else
+                  &#8734;
+              - else
+                - if variant.child_variants_stock_control?
+                  = boolean_tag(variant.child_variants_in_stock?, nil, :true_text => variant.child_variants_stock, :false_text => t('shoppe.variants.no_stock'))
+                - else
+                  &#8734;

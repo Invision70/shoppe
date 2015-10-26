@@ -25,14 +25,17 @@
   end
 
   g.column name: t('shoppe.products.sku'), attribute: 'sku' do |product|
-    product.sku
+    product.full_sku
   end
 
   g.column name: t('shoppe.products.price_variants') do |product|
     if product.has_variants?
       String.new.tap do |s|
-        for variant in product.variants
+        for variant in product.variants.order(:lft)
           s << '<p>'
+          unless variant.root_variant?
+            s << '&rarr;&nbsp;'
+          end
           s << link_to(variant.name, edit_product_variant_path(product, variant))+': '+number_to_currency(variant.selling_price)
           if variant.stock_control?
             s << '&nbsp;';

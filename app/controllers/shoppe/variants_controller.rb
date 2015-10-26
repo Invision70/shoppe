@@ -2,12 +2,16 @@ module Shoppe
   class VariantsController < ApplicationController
 
     before_filter { @active_nav = :products }
-    before_filter { @product = Shoppe::Product.find(params[:product_id]) }
-    before_filter { params[:id] && @variant = @product.variants.find(params[:id]) }
+    before_filter {
+      @product = Shoppe::Product.find(params[:product_id])
+      @variant = @product.variants.find(params[:id]) if params[:id]
+      @root_variants = @product.variants.roots.except_descendants(@variant) if @product
+    }
     before_filter { @attributes = Shoppe::ProductAttribute.where(for_variant: true).grouped_hash }
+    before_filter { @parent_variants = Shoppe::Product }
 
     def index
-      @variants = @product.variants.ordered
+      @variants = @product.variants.order(:lft)
     end
 
     def new
@@ -48,7 +52,7 @@ module Shoppe
     private
 
     def safe_params
-      params[:product].permit(:name, :variant_type, :permalink, :sku, :default_image_file, :price, :cost_price, :special_price, :tax_rate_id, :weight, :stock_control, :active, :default)
+      params[:product].permit(:name, :variant_type, :variant_parent_id, :permalink, :sku, :default_image_file, :price, :cost_price, :special_price, :tax_rate_id, :weight, :stock_control, :active, :default)
     end
 
   end

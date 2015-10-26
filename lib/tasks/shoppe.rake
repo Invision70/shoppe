@@ -32,6 +32,15 @@ namespace :shoppe do
     puts
   end
   
+  desc "Reset sku tree"
+  task :reset_sku_tree => :environment do
+    products = Shoppe::Product.all
+    products.each do |product|
+      product.full_sku = product.full_sku_tree
+      product.save
+    end
+  end
+
   desc "Import default set of countries"
   task :import_countries => :environment do
     Shoppe::CountryImporter.import

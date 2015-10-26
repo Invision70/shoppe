@@ -646,6 +646,7 @@ en:
 
     variants:
       back_to_variants: Back to variants
+      variant_parent_id: Parent variant
       cost_price: Cost price
       create_notice: Variant has been added successfully
       default_variant?: Default variant?

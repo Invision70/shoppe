@@ -8,11 +8,12 @@ module Shoppe
       @attributes = Shoppe::ProductAttribute.where(for_variant: false).grouped_hash
     }
 
-    before_filter { @product = Shoppe::Product.root.find(params[:id]) if params[:id] }
+
+    before_filter { @product = Shoppe::Product.not_variants.find(params[:id]) if params[:id] }
     before_filter { params[:product][:product_category_ids].map! { |category_id| category_id if Shoppe::ProductCategory.find(category_id).leaf? } if params[:product] && params[:product][:product_category_ids] }
 
     def index
-      @products = initialize_grid Shoppe::Product.root.includes(:translations, :stock_level_adjustments, :product_categories, :variants), order: 'id', order_direction: 'desc'
+      @products = initialize_grid Shoppe::Product.not_variants.includes(:translations, :stock_level_adjustments, :product_categories, :variants), order: 'id', order_direction: 'desc'
     end
 
     def new

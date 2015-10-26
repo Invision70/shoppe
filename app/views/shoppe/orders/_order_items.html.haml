@@ -15,7 +15,7 @@
           %tr
             %td.qty= item.quantity
             %td.product= item.ordered_item.full_name
-            %td.sku= item.ordered_item.sku
+            %td.sku= item.ordered_item.full_sku
             %td.money= number_to_currency item.total_cost
             %td.money= number_to_currency item.sub_total
             %td.money= number_to_currency item.tax_amount
