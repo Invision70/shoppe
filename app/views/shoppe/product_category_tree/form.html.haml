@@ -1,5 +1,7 @@
 %h3 Categories
 #product_category_tree.category_tree
+- if @product
+  = submit_tag "Save", :class => 'button green', :onclick => 'Nifty.Dialog.closeTopDialog() && $(".main>form").submit()'
 :javascript
   $('#product_category_tree').jstree({
     core : {
