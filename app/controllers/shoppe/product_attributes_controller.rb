@@ -41,7 +41,7 @@ module Shoppe
         end
       end
 
-      Shoppe::ProductAttribute.where(key: @product_attribute.key).update_all(key: safe_params[:product_attributes][:key], for_variant: safe_params[:product_attributes][:for_variant])
+      Shoppe::ProductAttribute.where(key: @product_attribute.key).update_all(key: safe_params[:product_attributes][:key], for_variant: safe_params[:product_attributes][:for_variant] || false)
       redirect_to edit_product_attribute_path(safe_params[:product_attributes][:key]), :flash => {:notice => t('shoppe.product_attributes.update_notice') }
     end
 
@@ -55,7 +55,7 @@ module Shoppe
     def safe_params
       product_attributes_defaults = {"public" => false, "searchable" => false}
       params.permit(:product_attributes => [:key])
-      params.permit(:product_attributes_array => [:value, :replace_value, :searchable, :public, :remove, :for_variant])
+      params.permit(:product_attributes_array => [:value, :replace_value, :searchable, :public, :remove])
       params[:product_attributes_array].map {|item| item.replace(product_attributes_defaults.merge(item))}
       params
     end
