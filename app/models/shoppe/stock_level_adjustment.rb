@@ -8,7 +8,6 @@ module Shoppe
     belongs_to :parent, :polymorphic => true
 
     # Validations
-    validates :description, :presence => true
     validates :adjustment, :numericality => true
     validate { errors.add(:adjustment, I18n.t('shoppe.activerecord.attributes.stock_level_adjustment.must_be_greater_or_equal_zero')) if adjustment == 0 }
 

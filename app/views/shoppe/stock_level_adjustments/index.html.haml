@@ -27,7 +27,7 @@
       %tbody
         %tr.form
           %td
-          %td.desc= f.text_field :description
+          %td.desc= f.text_field :description, :placeholder => '(optional)'
           %td.adjustment
             = f.text_field :adjustment
             = f.submit t('shoppe.stock_level_adjustments.add'), :class => 'button button-mini green'
