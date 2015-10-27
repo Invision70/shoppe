@@ -316,9 +316,7 @@ header.main {
 	}
 
 	div.extraAttachments{
-		display: none;
-
-		dl.half { margin-top: 15px; }
+		dl { margin-top: 15px;float: left;padding: 10px;padding-left: 0px; margin: 0px; }
 	}
 
 	p.addAttachments {

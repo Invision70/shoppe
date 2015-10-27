@@ -64,8 +64,6 @@ module Shoppe
 
     def attachments=(attrs)
       if attrs["default_image"]["file"].present? then self.attachments.build(attrs["default_image"]) end
-      if attrs["data_sheet"]["file"].present? then self.attachments.build(attrs["data_sheet"]) end
-
       if attrs["extra"]["file"].present? then attrs["extra"]["file"].each { |attr| self.attachments.build(file: attr, parent_id: attrs["extra"]["parent_id"], parent_type: attrs["extra"]["parent_type"]) } end
     end
 
@@ -130,13 +128,6 @@ module Shoppe
     # Set attachment for the default_image role
     def default_image_file=(file)
       self.attachments.build(:file => file, :role => 'default_image')
-    end
-
-    # Return attachment for the data_sheet role
-    #
-    # @return [String]
-    def data_sheet
-      self.attachments.for("data_sheet")
     end
 
     # Search for products which include the given attributes and return an active record
