@@ -119,10 +119,6 @@ module Shoppe
       end
     end
 
-    def variant_type_list
-      Shoppe::ProductAttribute.where(:key => self.variant_type).select(:key, :value).group(:key, :value) if self.variant_type
-    end
-
     # Is this product a variant of another?
     #
     # @return [Boolean]
