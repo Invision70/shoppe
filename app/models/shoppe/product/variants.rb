@@ -31,28 +31,36 @@ module Shoppe
     # If a variant is created, the base product should be updated so that it doesn't have stock control enabled
     after_create do
 
-      if self.variant?
-        self.parent.price = 0
-        self.parent.cost_price = 0
-        self.parent.special_price = 0
-        self.parent.tax_rate = nil
-        self.parent.weight = 0
-        self.parent.stock_control = false
-        self.parent.save if self.parent.changed?
-
-        unless self.root_variant?
-          self.variant_parent.price = 0
-          self.variant_parent.cost_price = 0
-          self.variant_parent.special_price = 0
-          self.variant_parent.tax_rate = nil
-          self.variant_parent.weight = 0
-          self.variant_parent.stock_control = false
-          self.variant_parent.default = false
-          self.variant_parent.save if self.variant_parent.changed?
-        end
-        
+      if self.variant? && ! self.root_variant?
+        self.variant_parent.price = 0
+        self.variant_parent.cost_price = 0
+        self.variant_parent.special_price = 0
+        self.variant_parent.tax_rate = nil
+        self.variant_parent.weight = 0
+        self.variant_parent.stock_control = false
+        self.variant_parent.default = false
+        self.variant_parent.save if self.variant_parent.changed?
       end
 
+    end
+
+    before_save do
+
+      if self.has_variants? && self.valid?
+
+        if self.changed_attributes[:price]
+          self.variants.update_all(:price => read_attribute(:price))
+        end
+
+        if self.changed_attributes[:special_price]
+          self.variants.update_all(:special_price => read_attribute(:special_price))
+        end
+
+        if self.changed_attributes[:cost_price]
+          self.variants.update_all(:cost_price => read_attribute(:cost_price))
+        end
+
+      end
     end
 
     before_save do

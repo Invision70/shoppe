@@ -63,32 +63,33 @@
           = f.hidden_field "attachments[extra][parent_type]", value: "Shoppe::Product"
           = f.hidden_field "attachments[extra][parent_id]", value: @product.id
 
-  - unless @product.has_variants?
-    = field_set_tag t('shoppe.products.pricing') do
-      .splitContainer
-        %dl.quarter
-          %dt= f.label :price, t('shoppe.products.price')
-          %dd
-            .moneyInput
-              .currency= Shoppe.settings.currency_unit.html_safe
-              = f.text_field :price, :class => 'text'
-        %dl.quarter
-          %dt= f.label :special_price, t('shoppe.products.special_price')
-          %dd
-            .moneyInput
-              .currency= Shoppe.settings.currency_unit.html_safe
-              = f.text_field :special_price, :class => 'text'
-              %p=t('shoppe.products.special_price_info')
-        %dl.quarter
-          %dt= f.label :cost_price, t('shoppe.products.cost_price')
-          %dd
-            .moneyInput
-              .currency= Shoppe.settings.currency_unit.html_safe
-              = f.text_field :cost_price, :class => 'text'
-        %dl.quarter
-          %dt= f.label :tax_rate_id, t('shoppe.products.tax_rate')
-          %dd= f.collection_select :tax_rate_id, Shoppe::TaxRate.ordered, :id, :description, {:include_blank => true}, {:class => 'chosen-with-deselect', :data => {:placeholder => t('shoppe.products.no_tax')}}
 
+  = field_set_tag t('shoppe.products.pricing') do
+    .splitContainer
+      %dl.quarter
+        %dt= f.label :price, t('shoppe.products.price')
+        %dd
+          .moneyInput
+            .currency= Shoppe.settings.currency_unit.html_safe
+            = f.text_field :price, :class => 'text', :value => f.object.has_variants? ? f.object.read_attribute(:price) : f.object.price
+      %dl.quarter
+        %dt= f.label :special_price, t('shoppe.products.special_price')
+        %dd
+          .moneyInput
+            .currency= Shoppe.settings.currency_unit.html_safe
+            = f.text_field :special_price, :class => 'text', :value => f.object.has_variants? ? f.object.read_attribute(:special_price) : f.object.special_price
+            %p=t('shoppe.products.special_price_info')
+      %dl.quarter
+        %dt= f.label :cost_price, t('shoppe.products.cost_price')
+        %dd
+          .moneyInput
+            .currency= Shoppe.settings.currency_unit.html_safe
+            = f.text_field :cost_price, :class => 'text', :value => f.object.has_variants? ? f.object.read_attribute(:cost_price) : f.object.cost_price
+      %dl.quarter
+        %dt= f.label :tax_rate_id, t('shoppe.products.tax_rate')
+        %dd= f.collection_select :tax_rate_id, Shoppe::TaxRate.ordered, :id, :description, {:include_blank => true}, {:class => 'chosen-with-deselect', :data => {:placeholder => t('shoppe.products.no_tax')}}
+
+  - unless @product.has_variants?
     = field_set_tag  t('shoppe.products.stock_control') do
       .splitContainer
         %dl.half
