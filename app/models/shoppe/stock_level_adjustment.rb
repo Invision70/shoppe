@@ -14,5 +14,9 @@ module Shoppe
     # All stock level adjustments ordered by their created date desending
     scope :ordered, -> { order(:id => :desc) }
 
+    after_save do
+      self.item.run_callbacks :stock_level_changed
+    end
+
   end
 end

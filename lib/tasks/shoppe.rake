@@ -5,6 +5,28 @@ namespace :shoppe do
     require File.join(Shoppe.root, 'db', 'seeds')
   end
 
+  desc "Update stock availability"
+  task :update_stock_availability => :environment do
+    total = Shoppe::Product.count
+    inc = 0
+    Shoppe::Product.all.each do |product|
+      product.update_attribute(:stock_availability, product.in_stock?)
+      inc+=1
+      STDOUT.write("\r#{inc} of #{total}")
+    end
+  end
+
+  desc "Update full sku"
+  task :update_full_sku => :environment do
+    total = Shoppe::Product.count
+    inc = 0
+    Shoppe::Product.all.each do |product|
+      product.update_attribute(:full_sku, product.full_sku_tree)
+      inc+=1
+      STDOUT.write("\r#{inc} of #{total}")
+    end
+  end
+
   desc "Recreate all attachment versions"
   task :recreate_attachment_versions => :environment do
     total = Shoppe::Attachment.count

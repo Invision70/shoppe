@@ -46,6 +46,8 @@ module Shoppe
 
     before_save do
 
+      self.full_sku = self.full_sku_tree
+
       if self.has_variants? && self.valid?
 
         if self.changed_attributes[:price]
@@ -63,8 +65,11 @@ module Shoppe
       end
     end
 
-    before_save do
-      self.full_sku = self.full_sku_tree
+    after_stock_level_changed do
+      self.update_attribute(:stock_availability, self.in_stock?)
+      if self.variant?
+        self.parent.update_attribute(:stock_availability, self.parent.in_stock?)
+      end
     end
 
     # Does this product have any variants?

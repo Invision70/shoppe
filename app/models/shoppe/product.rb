@@ -6,6 +6,8 @@ module Shoppe
 
     self.table_name = 'shoppe_products'
 
+    define_model_callbacks :stock_level_changed, :only => [:before, :after]
+
     # Add dependencies for products
     require_dependency 'shoppe/product/product_attributes'
     require_dependency 'shoppe/product/variants'
@@ -54,6 +56,9 @@ module Shoppe
 
     # All active products
     scope :active, -> { where(:active => true) }
+
+    # All stock availability products
+    scope :stock_availability, -> { where(:stock_availability => true) }
 
     # All featured products
     scope :featured, -> {where(:featured => true)}
