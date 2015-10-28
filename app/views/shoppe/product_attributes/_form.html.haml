@@ -24,8 +24,8 @@
       %tbody
         %tr.template{:style => 'display:none;'}
           %td= text_field_tag 'product_attributes_array[][value]', '', :placeholder => t('shoppe.products.value'), :class => 'attribute_value_search'
-          %td.searchable= check_box_tag 'product_attributes_array[][searchable]', '1'
-          %td.searchable= check_box_tag 'product_attributes_array[][public]', '1'
+          %td.searchable= check_box_tag 'product_attributes_array[][searchable]', '1', true
+          %td.searchable= check_box_tag 'product_attributes_array[][public]', '1', true
           %td.remove= link_to t('shoppe.remove'), '#', :class => 'button button-mini purple'
         - if @attributes.present?
           - for attribute in @attributes
