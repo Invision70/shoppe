@@ -189,8 +189,10 @@ module Shoppe
     #
     # @return [Boolean]
     def in_stock?
-      if self.has_variants? && self.child_variants_exists?
+      if self.child_variants_exists?
         self.variants.roots.inject(false) { |any, i| any ||= i.child_variants_in_stock? }
+      elsif self.has_variants?
+        self.variants.inject(false) { |any, i| any ||= i.stock_control? ? i.stock > 0 : true }
       else
         stock_control? ? stock > 0 : true
       end
