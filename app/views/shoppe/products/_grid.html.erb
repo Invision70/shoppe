@@ -55,7 +55,9 @@
 
   g.column name: t('shoppe.products.stock'), attribute: 'sku' do |product|
     String.new.tap do |s|
-      if product.stock_control?
+      if product.has_variants?
+        s << boolean_tag(product.in_stock?, nil, :true_text => product.stock, :false_text => t('shoppe.products.no_stock'))
+      elsif product.stock_control?
         s << boolean_tag(product.in_stock?, nil, :true_text => product.stock, :false_text => t('shoppe.products.no_stock'))
         s << '&nbsp;'
         s << link_to(t('shoppe.products.edit'), stock_level_adjustments_path(:item_type => product.class, :item_id => product.id), :class => 'edit', :rel => 'dialog', :data => {:dialog_width => 700, :dialog_behavior => 'stockLevelAdjustments'})
