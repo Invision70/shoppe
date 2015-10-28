@@ -1,7 +1,7 @@
 module Shoppe
   class ProductsController < Shoppe::ApplicationController
 
-    helper_method :product_attributes
+    helper_method :product_attributes, :product_attribute_multiple?
 
     before_filter {
       @active_nav = :products
@@ -59,15 +59,24 @@ module Shoppe
 
     private
 
+    # @TODO fix it @attributes
+    def product_attribute_multiple?(key)
+      Shoppe::ProductAttribute.where(key: key).first.multiple?
+    end
+
     def product_attributes(product)
       if product.new_record? && safe_params.present?
         @product_attributes = safe_params[:product_attributes_array].inject(Hash.new) do |h, (values, attributes)|
-          h[values[:key]] = values[:value]
+          if h[values[:key]]
+            h[values[:key]] << values[:value]
+          else
+            h[values[:key]] = [values[:value]]
+          end
           h
         end
       else
         @product_attributes ||= product.product_attributes.group_by(&:key).inject(Hash.new) do |h, (key, attributes)|
-          h[key] = attributes.map(&:value).first
+          h[key] = attributes.map(&:value)
           h
         end
       end
@@ -75,6 +84,19 @@ module Shoppe
 
     def safe_params
       file_params = [:file, :parent_id, :role, :parent_type, :file => []]
+      if params[:product].present?
+        multiple_attributes = params[:product][:product_attributes_array].inject(Array.new) do |arr, (attributes)|
+          if attributes[:value].is_a?(Array)
+            attributes[:value].each do |item|
+              arr << {:key => attributes[:key], :value => item}
+            end
+          else
+            arr << {:key => attributes[:key], :value => attributes[:value]}
+          end
+          arr
+        end
+        params[:product].merge!(:product_attributes_array => multiple_attributes)
+      end
       params[:product].permit(:name, :sku, :permalink, :description, :weight, :price, :cost_price, :special_price, :tax_rate_id, :stock_control, :active, :featured, :attachments => [:default_image => file_params, :extra => file_params], :product_attributes_array => [:key, :value], :product_category_ids => []) if params[:product]
     end
 

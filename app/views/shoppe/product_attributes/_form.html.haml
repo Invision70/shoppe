@@ -7,6 +7,11 @@
     %dd.checkbox
       = check_box_tag 'product_attributes[for_variant]', '1', @product_attribute.for_variant?
       = label_tag 'product_attributes[for_variant]', t('shoppe.product_attributes.for_variant_info')
+  %dl
+    %dt= label_tag 'product_attributes[multiple]',  t('shoppe.product_attributes.multiple')
+    %dd.checkbox
+      = check_box_tag 'product_attributes[multiple]', '1', @product_attribute.multiple
+      = label_tag 'product_attributes[multiple]', t('shoppe.product_attributes.multiple')
 = field_set_tag t('shoppe.product_attributes.values') do
   .margin
     %table.productAttributes.manage

@@ -34,26 +34,19 @@ module Shoppe
     def self.update_from_array(array)
       existing_keys = self.pluck(:key)
       index = 0
+
+      self.delete_all
+
       array.each do |hash|
-        next if hash['key'].blank?
+        next if hash['key'].blank? || hash['value'].blank?
         index += 1
         params = hash.merge({
           :searchable => hash['searchable'].to_s == '1',
           :public => hash['public'].to_s == '1',
           :position => index
         })
-        if existing_attr = self.where(:key => hash['key']).first
-          if hash['value'].blank?
-            existing_attr.destroy
-            index -= 1
-          else
-            existing_attr.update_attributes(params)
-          end
-        else
-          attribute = self.create(params)
-        end
+        self.create(params)
       end
-      self.where(:key => existing_keys - array.map { |h| h['key']}).delete_all
       true
     end
     

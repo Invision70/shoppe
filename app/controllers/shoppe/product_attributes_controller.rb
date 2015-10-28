@@ -5,7 +5,7 @@ module Shoppe
     before_filter { @product_attribute = Shoppe::ProductAttribute.find_by_key(params[:id]) if params[:id] }
 
     def index
-      @product_attributes = Shoppe::ProductAttribute.group(:key, :for_variant).select(:key, :for_variant).order(:key)
+      @product_attributes = Shoppe::ProductAttribute.group(:key, :for_variant, :multiple).select(:key, :for_variant, :multiple).order(:key)
     end
 
     def new
@@ -19,7 +19,7 @@ module Shoppe
         render :action => "new", :flash => {:notice => t('shoppe.product_attributes.empty_notice') }
       else
         product_attributes.each do |attribute_value|
-          Shoppe::ProductAttribute.create(attribute_value.merge({key: safe_params[:product_attributes][:key], for_variant: safe_params[:product_attributes][:for_variant]}).permit(:key, :value, :searchable, :public, :for_variant))
+          Shoppe::ProductAttribute.create(attribute_value.merge({key: safe_params[:product_attributes][:key], for_variant: safe_params[:product_attributes][:for_variant], multiple: safe_params[:product_attributes][:multiple]}).permit(:key, :value, :searchable, :public, :for_variant, :multiple))
         end
         redirect_to product_attributes_path, :flash => {:notice => t('shoppe.product_attributes.create_notice') }
       end
@@ -41,7 +41,7 @@ module Shoppe
         end
       end
 
-      Shoppe::ProductAttribute.where(key: @product_attribute.key).update_all(key: safe_params[:product_attributes][:key], for_variant: safe_params[:product_attributes][:for_variant] || false)
+      Shoppe::ProductAttribute.where(key: @product_attribute.key).update_all(key: safe_params[:product_attributes][:key], for_variant: safe_params[:product_attributes][:for_variant] || false, multiple: safe_params[:product_attributes][:multiple] || false)
       redirect_to edit_product_attribute_path(safe_params[:product_attributes][:key]), :flash => {:notice => t('shoppe.product_attributes.update_notice') }
     end
 
