@@ -151,7 +151,7 @@ module Shoppe
     # @return [nil]
     def child_variants_stock
       if self.root_variant?
-        self.descendants.where(:stock_control => true).inject(0) { |sum, a| sum + a.stock }
+        self.descendants.where(:stock_control => true).inject(0) { |sum, a| sum + a.stock_level_adjustments.sum(:adjustment) }
       end
     end
 
@@ -202,8 +202,8 @@ module Shoppe
     #
     # @return [Fixnum]
     def stock
-      if self.has_variants? && self.child_variants_exists?
-        self.variants.roots.inject(0) { |sum, i| sum + i.child_variants_stock }
+      if self.has_variants?
+        self.variants.roots.inject(0) { |sum, i| sum + (i.leaf? ? i.stock_level_adjustments.sum(:adjustment) : i.child_variants_stock) }
       else
         self.stock_level_adjustments.sum(:adjustment)
       end
