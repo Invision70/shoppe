@@ -4,6 +4,8 @@ require "globalize"
 module Shoppe
   class Product < ActiveRecord::Base
 
+    include ActionView::Helpers::SanitizeHelper
+
     self.table_name = 'shoppe_products'
 
     define_model_callbacks :stock_level_changed, :only => [:before, :after]
@@ -116,6 +118,10 @@ module Shoppe
     # @return [Shoppe::ProductCategory]
     def product_category
       self.product_categories.first rescue nil
+    end
+
+    def description
+      sanitize read_attribute(:description), tags: %w(strong em a b u i ul li dl dd dt p br font div), attributes: %w(href target color)
     end
 
     # Return attachment for the default_image role
