@@ -45,14 +45,14 @@
               - else
                 &mdash;
             %td
-              - unless variant.child_variants_exists?
-                - if variant.stock_control?
-                  %span.float-right= link_to t('shoppe.edit'), stock_level_adjustments_path(:item_type => variant.class, :item_id => variant.id), :class => 'edit', :rel => 'dialog', :data => {:dialog_width => 700, :dialog_behavior => 'stockLevelAdjustments'}
-                  = boolean_tag(variant.in_stock?, nil, :true_text => variant.stock, :false_text => t('shoppe.variants.no_stock'))
+              - if variant.descendants.count && ! variant.leaf?
+                - if variant.child_variants_stock_control?
+                  = boolean_tag(variant.child_variants_in_stock?, nil, :true_text => variant.child_variants_stock, :false_text => t('shoppe.variants.no_stock'))
                 - else
                   &#8734;
               - else
-                - if variant.child_variants_stock_control?
-                  = boolean_tag(variant.child_variants_in_stock?, nil, :true_text => variant.child_variants_stock, :false_text => t('shoppe.variants.no_stock'))
+                - if variant.stock_control?
+                  %span.float-right= link_to t('shoppe.edit'), stock_level_adjustments_path(:item_type => variant.class, :item_id => variant.id), :class => 'edit', :rel => 'dialog', :data => {:dialog_width => 700, :dialog_behavior => 'stockLevelAdjustments'}
+                  = boolean_tag(variant.in_stock?, nil, :true_text => variant.stock, :false_text => t('shoppe.variants.no_stock'))
                 - else
                   &#8734;
