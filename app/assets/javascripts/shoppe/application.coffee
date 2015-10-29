@@ -21,9 +21,6 @@ $ ->
     string = string.replace new RegExp('(^' + separator + ')|(' + separator + '$)', 'gmi'), ''
     string.toLowerCase()
 
-  # Automatically focus all fields with the 'focus' class
-  $('input.focus').focus()
-
   $('.datepicker').datepicker
     dateFormat: "yy-mm-dd"
     changeMonth: true

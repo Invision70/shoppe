@@ -41,6 +41,7 @@ module Shoppe
         end
       end
 
+      Shoppe::Product.where(variant_type: @product_attribute.key).update_all(variant_type: safe_params[:product_attributes][:key]) if safe_params[:product_attributes][:for_variant]
       Shoppe::ProductAttribute.where(key: @product_attribute.key).update_all(key: safe_params[:product_attributes][:key], for_variant: safe_params[:product_attributes][:for_variant] || false, multiple: safe_params[:product_attributes][:multiple] || false)
       redirect_to edit_product_attribute_path(safe_params[:product_attributes][:key]), :flash => {:notice => t('shoppe.product_attributes.update_notice') }
     end
