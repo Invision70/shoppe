@@ -41,8 +41,9 @@ module Shoppe
         next if hash['key'].blank? || hash['value'].blank?
         index += 1
         params = hash.merge({
-          :searchable => hash['searchable'].to_s == '1',
-          :public => hash['public'].to_s == '1',
+          :searchable => hash[:searchable].to_s == '1',
+          :public => hash[:public].to_s == '1',
+          :multiple => hash[:multiple].to_s == '1',
           :position => index
         })
         self.create(params)

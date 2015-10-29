@@ -37,7 +37,9 @@
               %td
                 = attribute.first
                 = hidden_field_tag 'product[product_attributes_array][][key]', attribute.first
-              %td= select_tag 'product[product_attributes_array][][value]', options_for_select(attribute.last {|p| [p, p] }, :selected => product_attributes(f.object) ? product_attributes(f.object)[attribute.first] : nil), :multiple => product_attribute_multiple?(attribute.first), :include_blank => true, :class => 'chosen-with-deselect attribute-selectable', :data => {:placeholder => '-- no selected --'}
+                = hidden_field_tag 'product[product_attributes_array][][public]', product_attribute_param(attribute.first, :public) ? 1 : 0
+                = hidden_field_tag 'product[product_attributes_array][][searchable]', product_attribute_param(attribute.first, :searchable) ? 1 : 0
+              %td= select_tag 'product[product_attributes_array][][value]', options_for_select(attribute.last {|p| [p, p] }, :selected => product_attributes(f.object) ? product_attributes(f.object)[attribute.first] : nil), :multiple => product_attribute_param(attribute.first, :multiple), :include_blank => true, :class => 'chosen-with-deselect attribute-selectable', :data => {:placeholder => '-- no selected --'}
 
   = field_set_tag t('shoppe.products.attachments') do
     .splitContainer

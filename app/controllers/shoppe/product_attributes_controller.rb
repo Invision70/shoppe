@@ -5,7 +5,7 @@ module Shoppe
     before_filter { @product_attribute = Shoppe::ProductAttribute.find_by_key(params[:id]) if params[:id] }
 
     def index
-      @product_attributes = Shoppe::ProductAttribute.group(:key, :for_variant, :multiple).select(:key, :for_variant, :multiple).order(:key)
+      @product_attributes = Shoppe::ProductAttribute.select(:key).group(:key)
     end
 
     def new

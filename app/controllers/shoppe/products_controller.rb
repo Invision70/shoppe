@@ -1,7 +1,7 @@
 module Shoppe
   class ProductsController < Shoppe::ApplicationController
 
-    helper_method :product_attributes, :product_attribute_multiple?
+    helper_method :product_attributes, :product_attribute_param
 
     before_filter {
       @active_nav = :products
@@ -60,8 +60,9 @@ module Shoppe
     private
 
     # @TODO fix it @attributes
-    def product_attribute_multiple?(key)
-      Shoppe::ProductAttribute.where(key: key).first.multiple?
+    def product_attribute_param(key, attr)
+      attribute = Shoppe::ProductAttribute.where(key: key).first
+      attribute.try(attr)
     end
 
     def product_attributes(product)
@@ -88,16 +89,16 @@ module Shoppe
         multiple_attributes = params[:product][:product_attributes_array].inject(Array.new) do |arr, (attributes)|
           if attributes[:value].is_a?(Array)
             attributes[:value].each do |item|
-              arr << {:key => attributes[:key], :value => item}
+              arr << {:key => attributes[:key], :value => item, :multiple => '1', :public => attributes[:public], :searchable => attributes[:searchable]}
             end
           else
-            arr << {:key => attributes[:key], :value => attributes[:value]}
+            arr << attributes
           end
           arr
         end
         params[:product].merge!(:product_attributes_array => multiple_attributes)
       end
-      params[:product].permit(:name, :sku, :permalink, :description, :weight, :price, :cost_price, :special_price, :tax_rate_id, :stock_control, :active, :featured, :attachments => [:default_image => file_params, :extra => file_params], :product_attributes_array => [:key, :value], :product_category_ids => []) if params[:product]
+      params[:product].permit(:name, :sku, :permalink, :description, :weight, :price, :cost_price, :special_price, :tax_rate_id, :stock_control, :active, :featured, :attachments => [:default_image => file_params, :extra => file_params], :product_attributes_array => [:key, :value, :public, :searchable, :multiple], :product_category_ids => []) if params[:product]
     end
 
   end

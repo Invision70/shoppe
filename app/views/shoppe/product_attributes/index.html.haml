@@ -9,7 +9,6 @@
     %thead
       %tr
         %th= t('shoppe.product_attributes.key')
-        %th= t('shoppe.product_attributes.for_variant')
     %tbody
       - if @product_attributes.empty?
         %tr.empty
@@ -18,4 +17,3 @@
         - for attribute in @product_attributes
           %tr
             %td= link_to attribute.key, edit_product_attribute_path(attribute.key)
-            %td= boolean_tag attribute.for_variant
