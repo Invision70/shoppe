@@ -2,7 +2,7 @@
 if defined?(Wice::Defaults)
 
   # Default number of rows to show per page.
-  Wice::Defaults::PER_PAGE = 20
+  Wice::Defaults::PER_PAGE = 100
 
   # Default order direction
   Wice::Defaults::ORDER_DIRECTION = 'asc'
@@ -26,7 +26,7 @@ if defined?(Wice::Defaults)
   Wice::Defaults::ALLOW_MULTIPLE_SELECTION = true
 
   # Show the upper pagination panel by default or not
-  Wice::Defaults::SHOW_UPPER_PAGINATION_PANEL = false
+  Wice::Defaults::SHOW_UPPER_PAGINATION_PANEL = true
 
   # Disabling CSV export by default
   Wice::Defaults::ENABLE_EXPORT_TO_CSV = false

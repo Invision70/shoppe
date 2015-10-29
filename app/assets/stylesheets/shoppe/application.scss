@@ -616,7 +616,7 @@ table.data {
         width: 100%
       }
     }
-	tfoot td { background:#5B6270; color:#fff; border:1px solid #5B6270; font-weight:bold; font-size:1.1em;}
+	tfoot td, thead>tr:first-child td { background:#5B6270; color:#fff; border:1px solid #5B6270; font-weight:bold; font-size:1.1em;}
     tbody img.preview {width: 15px;}
 }
 
