@@ -22,7 +22,7 @@ module Shoppe
       order.validates :billing_address3, :presence => true
       order.validates :billing_postcode, :presence => true
       order.validates :billing_country, :presence => true
-      order.validates :billing_state, :presence => true
+      order.validates :billing_state, :presence => true, :if => Proc.new{|f| f.billing_country.try(:code2) == 'US' }
     end
 
     # The name for billing purposes

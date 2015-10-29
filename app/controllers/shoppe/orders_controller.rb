@@ -112,7 +112,7 @@ module Shoppe
         :first_name, :last_name, :company,
         :billing_address1, :billing_address2, :billing_address3, :billing_address4, :billing_postcode, :billing_country_id, :billing_state_id, :billing_province,
         :separate_delivery_address,
-        :delivery_name, :delivery_address1, :delivery_address2, :delivery_address3, :delivery_address4, :delivery_postcode, :delivery_country_id, :delivery_state_id, :delivery_province,
+        :delivery_name, :delivery_address1, :delivery_address2, :delivery_address3, :delivery_address4, :delivery_postcode, :delivery_country_id, :delivery_state_id,
         :delivery_price, :delivery_service_id, :delivery_tax_amount,
         :email_address, :phone_number,
         :notes,
