@@ -4,7 +4,8 @@ module Shoppe
     self.table_name = 'shoppe_tax_rates'
     
     include Shoppe::AssociatedCountries
-    
+    include Shoppe::AssociatedStates
+
     # The order address types which may be used when choosing how to apply the tax rate
     ADDRESS_TYPES = ['billing', 'delivery']
     
@@ -36,9 +37,19 @@ module Shoppe
     #
     # @return [BigDecimal]
     def rate_for(order)
-      return rate if countries.empty?
-      return rate if address_type == 'billing'  && (order.billing_country.nil?   || country?(order.billing_country))
-      return rate if address_type == 'delivery' && (order.delivery_country.nil?  || country?(order.delivery_country))
+
+      return rate if countries.empty? && states.empty? # for all
+
+      if states.present?
+        return rate if address_type == 'billing'  && state?(order.billing_state)
+        return rate if address_type == 'delivery' && state?(order.delivery_state)
+      end
+
+      if countries.present?
+        return rate if address_type == 'billing'  && (order.billing_country.nil?   || country?(order.billing_country))
+        return rate if address_type == 'delivery' && (order.delivery_country.nil?  || country?(order.delivery_country))
+      end
+
       BigDecimal(0)
     end
     

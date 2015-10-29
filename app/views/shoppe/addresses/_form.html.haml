@@ -16,15 +16,22 @@
         %dt= f.label :address3
         %dd= f.text_field :address3, :class => "text"
     .splitContainer
-      %dl.third
+      %dl.half
         %dt= f.label :address4
         %dd= f.text_field :address4, :class => "text"
-      %dl.third
+      %dl.half
         %dt= f.label :postcode
         %dd= f.text_field :postcode, :class => "text"
+    .splitContainer
       %dl.third
         %dt= f.label :country_id
-        %dd= f.collection_select :country_id, Shoppe::Country.ordered, :id, :name, {:include_blank => true}, {:class => 'chosen', :data => { :placeholder => t('shoppe.orders.select_country')}} 
+        %dd= f.collection_select :country_id, Shoppe::Country.ordered, :id, :name, {:include_blank => true}, {:class => 'chosen', :data => { :placeholder => t('shoppe.orders.select_country')}}
+      %dl.third
+        %dt= f.label :state_id
+        %dd= f.collection_select :state_id, Shoppe::State.ordered, :id, :name, {:include_blank => true}, {:class => 'chosen', :data => { :placeholder => t('shoppe.orders.select_state')}}
+      %dl.third
+        %dt= f.label :province
+        %dd= f.text_field :province, :class => "text"
 
   %p.submit
     - unless @address.new_record?

@@ -17,6 +17,8 @@
       %dd= @order.billing_address4
       %dd= @order.billing_postcode
       %dd= @order.billing_country.try(:name)
+      %dd= @order.billing_state.try(:name)
+      %dd= @order.billing_province
       - if @order.separate_delivery_address?
         %dt= t('shoppe.orders.delivery_address')
         %dd= @order.delivery_name
@@ -26,6 +28,8 @@
         %dd= @order.delivery_address4
         %dd= @order.delivery_postcode
         %dd= @order.delivery_country.try(:name)
+        %dd= @order.delivery_state.try(:name)
+        %dd= @order.delivery_province
   .right
     %dl
       %dt= t('shoppe.orders.email_address')

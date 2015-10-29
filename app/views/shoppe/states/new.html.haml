@@ -1,0 +1,7 @@
+- @page_title = t('shoppe.states.states')
+
+= content_for :header do
+  %p.buttons= link_to t('shoppe.states.back') , :states, :class => 'button'
+  %h2.countries= t('shoppe.states.states')
+
+= render 'form'

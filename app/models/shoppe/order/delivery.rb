@@ -11,6 +11,11 @@ module Shoppe
     # @return [Shoppe::Country]
     belongs_to :delivery_country, :class_name => 'Shoppe::Country', :foreign_key => 'delivery_country_id'
 
+    # The state where this order is being delivered to (if one has been provided)
+    #
+    # @return [Shoppe::State]
+    belongs_to :delivery_state, :class_name => 'Shoppe::State', :foreign_key => 'delivery_state_id'
+
     # The user who marked the order has shipped
     #
     # @return [Shoppe::User]
@@ -22,11 +27,10 @@ module Shoppe
     # Validations
     with_options :if => :separate_delivery_address? do |order|
       order.validates :delivery_name, :presence => true
-      order.validates :delivery_address1, :presence => true
       order.validates :delivery_address3, :presence => true
-      order.validates :delivery_address4, :presence => true
       order.validates :delivery_postcode, :presence => true
       order.validates :delivery_country, :presence => true
+      order.validates :delivery_state, :presence => true, :if => Proc.new{|f| f.delivery_country.code2 == 'US' }
     end
 
     validate do
@@ -70,12 +74,13 @@ module Shoppe
         self.delivery_address4 = nil
         self.delivery_postcode = nil
         self.delivery_country = nil
+        self.delivery_state = nil
       end
     end
 
     # Create some delivery_ methods which will mimic the billing methods if the order does
     # not need a seperate address.
-    [:delivery_name, :delivery_address1, :delivery_address2, :delivery_address3, :delivery_address4, :delivery_postcode, :delivery_country].each do |f|
+    [:delivery_name, :delivery_address1, :delivery_address2, :delivery_address3, :delivery_address4, :delivery_postcode, :delivery_country, :delivery_state, :delivery_province].each do |f|
       define_method(f) do
         separate_delivery_address? ? super() : send(f.to_s.gsub('delivery_', 'billing_'))
       end

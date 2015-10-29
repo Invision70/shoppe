@@ -1,0 +1,19 @@
+= form_for @state do |f|
+  = f.error_messages
+  = field_set_tag t('shoppe.states.state_details') do
+
+    .splitContainer
+      %dl.half
+        %dt= f.label :name, t('shoppe.states.name')
+        %dd= f.text_field :name, :class => 'focus text'
+      %dl.half
+        %dt= f.label :code, t('shoppe.states.code')
+        %dd= f.text_field :code, :class => 'focus text'
+
+  %p.submit
+    - unless @state.new_record?
+      %span.right
+        = link_to t('shoppe.delete'), @state, :class => 'button purple',
+          :method => :delete, :data => {:confirm => t('shoppe.states.delete_confirmation')}
+    = f.submit t('shoppe.submit'), :class => 'button green'
+    = link_to t('shoppe.cancel'), :states, :class => 'button'

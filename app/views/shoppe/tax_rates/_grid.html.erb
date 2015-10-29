@@ -3,11 +3,15 @@
   g.blank_slate content_tag(:div, "No records found", id: 'flash-notice')
 
   g.column name: t('shoppe.tax_rates.name'), attribute: 'name' do |tax_rate|
-    link_to tax_rate.name, [:edit, tax_rate]
+    link_to tax_rate.description, [:edit, tax_rate]
   end
 
-  g.column name: t('shoppe.tax_rates.rate'), attribute: 'rate' do |tax_rate|
-    number_to_currency tax_rate.rate
+  g.column name: t('shoppe.tax_rates.countries') do |tax_rate|
+    tax_rate.countries.map(&:name).join(', ')
+  end
+
+  g.column name: t('shoppe.tax_rates.states') do |tax_rate|
+    tax_rate.states.map(&:name).join(', ')
   end
 
 end -%>

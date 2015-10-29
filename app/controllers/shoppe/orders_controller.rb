@@ -34,6 +34,8 @@ module Shoppe
             @order.billing_address4 = billing.address4
             @order.billing_postcode = billing.postcode
             @order.billing_country_id = billing.country_id
+            @order.billing_state_id = billing.state_id
+            @order.billing_province = billing.province
           end
           if @customer.addresses.delivery.present?
             delivery = @customer.addresses.delivery.first
@@ -43,6 +45,8 @@ module Shoppe
             @order.delivery_address4 = delivery.address4
             @order.delivery_postcode = delivery.postcode
             @order.delivery_country_id = delivery.country_id
+            @order.delivery_state_id = delivery.state_id
+            @order.delivery_province = delivery.province
           end
         end
 
@@ -106,9 +110,9 @@ module Shoppe
       params[:order].permit(
         :customer_id,
         :first_name, :last_name, :company,
-        :billing_address1, :billing_address2, :billing_address3, :billing_address4, :billing_postcode, :billing_country_id,
+        :billing_address1, :billing_address2, :billing_address3, :billing_address4, :billing_postcode, :billing_country_id, :billing_state_id, :billing_province,
         :separate_delivery_address,
-        :delivery_name, :delivery_address1, :delivery_address2, :delivery_address3, :delivery_address4, :delivery_postcode, :delivery_country_id,
+        :delivery_name, :delivery_address1, :delivery_address2, :delivery_address3, :delivery_address4, :delivery_postcode, :delivery_country_id, :delivery_state_id, :delivery_province,
         :delivery_price, :delivery_service_id, :delivery_tax_amount,
         :email_address, :phone_number,
         :notes,

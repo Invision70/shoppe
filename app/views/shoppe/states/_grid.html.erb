@@ -1,0 +1,13 @@
+<%= grid(@states) do |g|
+
+  g.blank_slate content_tag(:div, "No records found", id: 'flash-notice')
+
+  g.column name: t('shoppe.states.name'), attribute: 'name' do |state|
+    link_to state.name, [:edit, state]
+  end
+
+  g.column name: t('shoppe.states.code'), attribute: 'code' do |state|
+    link_to state.code, [:edit, state]
+  end
+
+end -%>

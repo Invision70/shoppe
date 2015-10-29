@@ -14,13 +14,20 @@
         %dt= f.label :rate, t('shoppe.tax_rates.rate')
         %dd= f.text_field :rate, :class => 'text'
 
-  = field_set_tag t('shoppe.tax_rates.country_restriction') do
+  = field_set_tag t('shoppe.tax_rates.restrictions') do
     %dl
+      %dt= f.label :address_type, t('shoppe.tax_rates.address_type')
       %dd
         = f.select :address_type, Shoppe::TaxRate::ADDRESS_TYPES.map { |a| [t('shoppe.tax_rates.address_type_option', address: t("shoppe.tax_rates.#{a}")).html_safe, a]}, {}, :class => 'chosen-basic'
     %dl
+      %dt= f.label :country_ids, t('shoppe.tax_rates.countries')
       %dd
         = f.collection_select :country_ids, Shoppe::Country.ordered, :id, :name, {}, {:class => 'chosen', :multiple => true, :data => {:placeholder => t('shoppe.tax_rates.all_countries') }}
+    %hr
+    %dl
+      %dt= f.label :state_ids, t('shoppe.tax_rates.states')
+      %dd
+        = f.collection_select :state_ids, Shoppe::State.ordered, :id, :name, {}, {:class => 'chosen', :multiple => true, :data => {:placeholder => t('shoppe.tax_rates.all_states') }}
   %p.submit
     - unless @tax_rate.new_record?
       %span.right= link_to t('shoppe.delete'), @tax_rate, :class => 'button purple', :method => :delete, :data => {:confirm => t('shoppe.tax_rates.delete_confirmation') }

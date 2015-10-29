@@ -40,7 +40,7 @@ module Shoppe
     private
   
     def safe_params
-      params[:address].permit(:address_type, :address1, :address2, :address3, :address4, :postcode, :country_id)
+      params[:address].permit(:address_type, :address1, :address2, :address3, :address4, :postcode, :country_id, :state_id, :province)
     end
 
   end

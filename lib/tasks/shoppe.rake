@@ -67,6 +67,11 @@ namespace :shoppe do
   task :import_countries => :environment do
     Shoppe::CountryImporter.import
   end
+
+  desc "Import default set of states"
+  task :import_states => :environment do
+    Shoppe::StateImporter.import
+  end
   
   desc "Run the key setup tasks for a new application"
   task :setup => :environment do

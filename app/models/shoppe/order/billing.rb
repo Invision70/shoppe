@@ -6,6 +6,11 @@ module Shoppe
     # @return [Shoppe::Country]
     belongs_to :billing_country, :class_name => 'Shoppe::Country', :foreign_key => 'billing_country_id'
 
+    # The state which this order should be billed to
+    #
+    # @return [Shoppe::State]
+    belongs_to :billing_state, :class_name => 'Shoppe::State', :foreign_key => 'billing_state_id'
+
     # Payments which have been stored for the order
     has_many :payments, :dependent => :destroy, :class_name => 'Shoppe::Payment'
 
@@ -15,9 +20,9 @@ module Shoppe
       order.validates :last_name, :presence => true
       order.validates :billing_address1, :presence => true
       order.validates :billing_address3, :presence => true
-      order.validates :billing_address4, :presence => true
       order.validates :billing_postcode, :presence => true
       order.validates :billing_country, :presence => true
+      order.validates :billing_state, :presence => true
     end
 
     # The name for billing purposes

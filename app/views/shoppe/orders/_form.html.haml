@@ -18,13 +18,19 @@
     %dd.space= f.text_field :billing_address2, :class => 'text'
     %dd.space= f.text_field :billing_address3, :class => 'text'
     %dd.space= f.text_field :billing_address4, :class => 'text'
+  %dl
+    %dt= f.label :billing_province, t('shoppe.orders.province')
+    %dd.space= f.text_field :billing_province, :class => 'text'
   .splitContainer
-    %dl.half
+    %dl.third
       %dt= f.label :billing_postcode, t('shoppe.orders.post_code')
       %dd= f.text_field :billing_postcode, :class => 'text'
-    %dl.half
+    %dl.third
       %dt= f.label :billing_country_id, t('shoppe.orders.country')
       %dd= f.collection_select :billing_country_id, Shoppe::Country.ordered, :id, :name, {:include_blank => true}, {:data => {:placeholder => t('shoppe.orders.select_country')}}
+    %dl.third
+      %dt= f.label :billing_state_id, t('shoppe.orders.state')
+      %dd= f.collection_select :billing_state_id, Shoppe::State.ordered, :id, :name, {:include_blank => true}, {:data => {:placeholder => t('shoppe.orders.select_state')}}
 
   .splitContainer
     %dl.third

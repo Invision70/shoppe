@@ -62,6 +62,10 @@ module Shoppe
           self.variants.update_all(:cost_price => read_attribute(:cost_price))
         end
 
+        if self.changed_attributes[:tax_rate_id]
+          self.variants.update_all(:tax_rate_id => read_attribute(:tax_rate_id))
+        end
+
       end
     end
 
@@ -117,12 +121,16 @@ module Shoppe
           if root_variant?
             s << name
           else
-            s << self.variant_parent.variant_type
-            s << ': '
+            if self.variant_parent.variant_type
+              s << self.variant_parent.variant_type
+              s << ': '
+            end
             s << self.variant_parent.name
-            s << ', '
-            s << self.variant_type
-            s << ': '
+            if self.variant_type
+              s << ', '
+              s << self.variant_type
+              s << ': '
+            end
             s << name
           end
           s << ')'
