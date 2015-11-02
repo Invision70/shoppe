@@ -27,6 +27,7 @@ nav.sidebar {
 	border-bottom: 5px solid #96BF48;
 	position: fixed;
 	width: 100%;
+	z-index: 2000;
 	p.logged {
 		background:#5B6270;
 		padding:12px 20px;
