@@ -32,7 +32,7 @@ module Shoppe
       unless no_stock_of.empty?
         raise Shoppe::Errors::InsufficientStockToFulfil, :order => self, :out_of_stock_items => no_stock_of
       end
-    
+
       run_callbacks :confirmation do
         # If we have successfully charged the card (i.e. no exception) we can go ahead and mark this
         # order as 'received' which means it can be accepted by staff.
