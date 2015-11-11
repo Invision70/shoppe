@@ -12,9 +12,16 @@ module Shoppe
     def create
       @newsletter_form = Shoppe::Newsletter::Form.new(safe_params)
       if @newsletter_form.valid?
-        form_emails = @newsletter_form.emails.split("\r\n")
-        Delayed::Job.enqueue NewsletterJob.new(@newsletter_form.subject, @newsletter_form.message, form_emails.blank? ? Shoppe::Customer.all.collect(&:email) : form_emails)
-        redirect_to newsletters_path, flash: { notice: t('shoppe.newsletters.created_successfully') }
+        if params[:preview]
+          @subject = @newsletter_form.subject
+          @message = @newsletter_form.message.html_safe
+          @preview = true
+          render 'shoppe/mailer/newsletter', :layout => nil
+        else
+          form_emails = @newsletter_form.emails.split("\r\n")
+          Delayed::Job.enqueue NewsletterJob.new(@newsletter_form.subject, @newsletter_form.message, form_emails.blank? ? Shoppe::Customer.all.collect(&:email) : form_emails)
+          redirect_to newsletters_path, flash: { notice: t('shoppe.newsletters.created_successfully') }
+        end
       else
         render action: 'index'
       end

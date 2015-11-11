@@ -182,9 +182,11 @@ en:
     cancel: Cancel
     close: Close
     delete: Delete
+    create: Create
     edit: Edit
     import: Import
     remove: Remove
+    preview: Preview
 
     removed_it: "%{it} has been removed successfully"
     save_settings: Save Settings
