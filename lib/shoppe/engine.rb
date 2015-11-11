@@ -3,6 +3,7 @@ module Shoppe
     isolate_namespace Shoppe
     
     if Shoppe.respond_to?(:root)
+      config.active_job.queue_adapter = :delayed_job
       config.autoload_paths << File.join(Shoppe.root, 'lib')
       config.assets.precompile += ['shoppe/sub.css', 'shoppe/printable.css']
     end

@@ -6,7 +6,11 @@ require 'bcrypt'
 require 'dynamic_form'
 require 'kaminari'
 require 'ransack'
-require "globalize"
+require 'globalize'
+require 'acts_as_paranoid'
+require 'activeform-rails'
+require 'delayed_job'
+require 'delayed_job_active_record'
 
 require 'nifty/utils'
 require 'nifty/key_value_store'
@@ -14,8 +18,8 @@ require 'nifty/dialog'
 require 'carrierwave'
 require 'wice_grid'
 require 'devise'
-require "the_sortable_tree"
-require "jstree-rails-4"
+require 'the_sortable_tree'
+require 'jstree-rails-4'
 
 module Shoppe
   class << self

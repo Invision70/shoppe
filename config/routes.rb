@@ -52,6 +52,7 @@ Shoppe::Engine.routes.draw do
   resources :states
   resources :attachments, :only => :destroy
   resources :product_attributes
+  resources :newsletters
 
   get 'settings'=> 'settings#edit'
   post 'settings' => 'settings#update'

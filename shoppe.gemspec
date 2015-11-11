@@ -29,6 +29,9 @@ Gem::Specification.new do |s|
   s.add_dependency "font-awesome-sass", "~> 4.4.0"
   s.add_dependency "devise", "~> 3.5"
   s.add_dependency "jstree-rails-4"
+  s.add_dependency "delayed_job_active_record"
+  s.add_dependency "acts_as_paranoid", "0.5.0.beta2"
+  s.add_dependency "activeform-rails"
 
   s.add_dependency "nifty-key-value-store", ">= 1.0.1", "< 2.0.0"
   s.add_dependency "nifty-utils", ">= 1.0", "< 1.1"

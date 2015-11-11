@@ -249,6 +249,21 @@ en:
     attachments:
       remove_notice: Attachment removed successfully
 
+    newsletters:
+      new: New Newsletter
+      id: ID
+      created_at: Created
+      recipients: Recipients
+      run_at: Run
+      finished_at: Finished
+      error: Error
+      subject: Subject
+      message: Message
+      emails: Recipient emails
+      delete: Delete
+      created_successfully: Newsletter has been created successfully.
+      updated_successfully: Newsletter has been updated successfully.
+      deleted_successfully: Newsletter has been deleted successfully.
     states:
           back: Back to states
           states: States
@@ -764,6 +779,7 @@ en:
         tax_rates: Tax Rates
         users: Users
         countries: Countries
+        newsletters: Newsletter
         states: States
         settings: Settings
 

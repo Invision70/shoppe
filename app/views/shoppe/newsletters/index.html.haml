@@ -1,0 +1,52 @@
+- @page_title = t('shoppe.navigation.admin_primary.newsletters')
+
+= content_for :header do
+  %h2.countries= t('shoppe.navigation.admin_primary.newsletters')
+
+= form_for @newsletter_form, :url => newsletters_path do |f|
+  = f.error_messages
+  = field_set_tag t('shoppe.newsletters.new') do
+    %dl
+      %dt= f.label :subject, t('shoppe.newsletters.subject')
+      %dd= f.text_field :subject, :class => 'focus text'
+    %dl
+      %dt= f.label :message, t('shoppe.newsletters.message')
+      %dd= f.text_area :message, :class => 'wysiwyg', :style => 'width: 100%'
+    %dl
+      %dt= f.label :emails, t('shoppe.newsletters.emails')
+      %dd= f.text_area :emails, :class => 'text', :placeholder => '(optional)'
+    %dl
+      %dt
+      %dd= f.submit t('shoppe.submit'), :class => 'button green'
+
+.table
+%table.data
+  %thead
+    %tr
+      %th= t('shoppe.newsletters.id')
+      %th= t('shoppe.newsletters.created_at')
+      %th= t('shoppe.newsletters.subject')
+      %th= t('shoppe.newsletters.recipients')
+      %th= t('shoppe.newsletters.run_at')
+      %th= t('shoppe.newsletters.finished_at')
+      %th= t('shoppe.newsletters.error')
+      %th
+  %tbody
+    - if @newsletters.empty?
+      %tr.empty
+        %td{:colspan => 5}= t('shoppe.newsletters.no_data')
+    - else
+      - for newsletter in @newsletters
+        %tr
+          %td= newsletter.id
+          %td= newsletter.created_at.to_s(:long)
+          %td= newsletter.payload_object.subject
+          %td= newsletter.payload_object.emails.count
+          %td= newsletter.run_at.to_s(:long)
+          %td
+            - if newsletter.deleted_at
+              = newsletter.deleted_at.to_s(:long)
+            - else
+              &#8734;
+          %td= newsletter.last_error || boolean_tag(false)
+          %td= link_to t('shoppe.newsletters.delete'), newsletter_path(newsletter), method: :delete
