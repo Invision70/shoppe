@@ -1,6 +1,11 @@
 - @page_title = t("shoppe.settings.settings")
 
 = content_for :header do
+  %p.buttons
+    = link_to t('shoppe.navigation.admin_primary.countries') , countries_path, :class => 'button'
+    = link_to t('shoppe.navigation.admin_primary.states') , states_path, :class => 'button'
+    = link_to t('shoppe.navigation.admin_primary.tax_rates') , tax_rates_path, :class => 'button'
+    = link_to t('shoppe.navigation.admin_primary.delivery_services') , delivery_services_path, :class => 'button'
   %h2.settings= t("shoppe.settings.settings")
 
 = form_tag :url => settings_path do |f|

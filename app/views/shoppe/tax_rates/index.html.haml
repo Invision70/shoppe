@@ -1,7 +1,9 @@
 - @page_title = t('shoppe.tax_rates.tax_rates')
 
 = content_for :header do
-  %p.buttons= link_to t('shoppe.tax_rates.new_tax_rate'), :new_tax_rate, :class => 'button green'
+  %p.buttons
+    = link_to t('shoppe.tax_rates.new_tax_rate'), :new_tax_rate, :class => 'button green'
+    = link_to t('shoppe.settings.back_to_settings') , settings_path, :class => 'button'
   %h2.tax_rates= t('shoppe.tax_rates.tax_rates')
 
 = render 'grid'

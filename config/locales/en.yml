@@ -789,6 +789,7 @@ en:
 
       settings: Settings
       system_settings: System Settings
+      back_to_settings: Back to settings
       demo_mode_error: You cannot make changes to settings in demo mode. Sorry about that.
       update_notice:  Settings have been updated successfully.
 
