@@ -23,8 +23,10 @@
         %dd= @customer.mobile
     .right
       %dl
-        %dt Confirmed
+        %dt= t('shoppe.customers.confirmed?')
         %dd= boolean_tag @customer.confirmed?
+        %dt= t('shoppe.customers.newsletter_subscribed?')
+        %dd= boolean_tag @customer.newsletter_subscribed?
         - if @customer.last_sign_in_at
           %dt Last sign in
           %dd= @customer.last_sign_in_at.to_s(:short)

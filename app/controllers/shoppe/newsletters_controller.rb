@@ -19,7 +19,7 @@ module Shoppe
           render 'shoppe/mailer/newsletter', :layout => nil
         else
           form_emails = @newsletter_form.emails.split("\r\n")
-          Delayed::Job.enqueue NewsletterJob.new(@newsletter_form.subject, @newsletter_form.message, form_emails.blank? ? Shoppe::Customer.all.collect(&:email) : form_emails)
+          Delayed::Job.enqueue NewsletterJob.new(@newsletter_form.subject, @newsletter_form.message, form_emails.blank? ? Shoppe::Customer.subscribed.collect(&:email) : form_emails)
           redirect_to newsletters_path, flash: { notice: t('shoppe.newsletters.created_successfully') }
         end
       else

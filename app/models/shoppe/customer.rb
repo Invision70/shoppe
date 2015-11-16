@@ -18,6 +18,8 @@ module Shoppe
 
     # All customers ordered by their ID desending
     scope :ordered, -> { order(:id => :desc)}
+    # Customers subscribed to newsletter
+    scope :subscribed, -> { where(:newsletter_subscribed => true)}
 
     # The name of the customer in the format of "Company (First Last)" or if they don't have
     # company specified, just "First Last".
@@ -34,10 +36,10 @@ module Shoppe
       "#{first_name} #{last_name}"
     end
 
-    def self.ransackable_attributes(auth_object = nil) 
+    def self.ransackable_attributes(auth_object = nil)
       ["id", "first_name", "last_name", "company", "email", "phone", "mobile"] + _ransackers.keys
     end
-  
+
     def self.ransackable_associations(auth_object = nil)
       []
     end

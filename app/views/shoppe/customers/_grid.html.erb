@@ -26,6 +26,10 @@
     customer.phone
   end
 
+  g.column name: 'Subscribed', attribute: 'newsletter_subscribed' do |customer|
+    boolean_tag customer.newsletter_subscribed?
+  end
+
   g.column name: 'Confirmed' do |customer|
     boolean_tag customer.confirmed?
   end

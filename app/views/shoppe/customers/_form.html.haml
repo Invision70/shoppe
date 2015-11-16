@@ -30,7 +30,10 @@
         %dt= f.label :password_confirmation
         %dd= f.text_field :password_confirmation, :class => "text"
       %dl.third
-
+        %dt= f.label :newsletter_subscribed,  t('shoppe.customers.newsletter_subscribed?')
+        %dd.checkbox
+          = f.check_box :newsletter_subscribed
+          = f.label :newsletter_subscribed, t('shoppe.customers.subscribed')
   %p.submit
     - unless @customer.new_record?
       %span.right

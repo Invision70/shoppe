@@ -115,9 +115,9 @@ en:
       template:
         body: ! 'There were problems with the following fields:'
         header:
-          one: 1 error prohibited this %{model} from being saved
-          many: ! '%{count} errors prohibited this %{model} from being saved'
-          other: ! '%{count} errors prohibited this %{model} from being saved'
+          one: 1 error
+          many: ! '%{count} errors'
+          other: ! '%{count} errors'
       models:
         shoppe/product_category:
           attributes:
@@ -769,7 +769,9 @@ en:
       created_successfully: Customer has been created successfully.
       updated_successfully: Customer has been updated successfully.
       deleted_successfully: Customer has been deleted successfully.
-
+      newsletter_subscribed?: Newsletter subscribed?
+      subscribed: Subscribed
+      confirmed?: Confirmed?
     navigation:
       admin_primary:
         customers: Customers
