@@ -12,7 +12,7 @@
     end
   end
 
-  g.column name: t('shoppe.products.name'), attribute: 'name' do |product|
+  g.column name: t('shoppe.products.name'), attribute: 'name', assoc: :translations do |product|
     link_to product.name, [:edit, product]
   end
 
