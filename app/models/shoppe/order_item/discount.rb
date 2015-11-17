@@ -1,7 +1,7 @@
 module Shoppe
   class OrderItem < ActiveRecord::Base
-    after_save :refresh_promo_code
-    after_destroy :refresh_promo_code
+
+    after_commit :refresh_promo_code, on: [:create, :update, :destroy]
 
     private
       # Refresh promo code if condition changed
