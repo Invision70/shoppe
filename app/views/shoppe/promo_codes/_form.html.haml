@@ -1,0 +1,36 @@
+= form_for @promo_code do |f|
+  = f.error_messages
+  = field_set_tag t('shoppe.promo_codes.promo_code') do
+    .splitContainer
+      %dl.third
+        %dt= f.label :code, t('shoppe.promo_codes.code')
+        %dd= f.text_field :code, :class => 'focus text'
+      %dl.third
+        %dt= f.label :discount, t('shoppe.promo_codes.discount')
+        %dd= f.text_field :discount, :class => 'text'
+      %dl.third
+        %dt= f.label :description, t('shoppe.promo_codes.description')
+        %dd= f.text_field :description, :class => 'text'
+    .splitContainer
+      %dl.third
+        %dt= f.label :min_price, t('shoppe.promo_codes.min_price')
+        %dd= f.text_field :min_price, :class => 'text'
+      %dl.third
+        %dt= f.label :max_price, t('shoppe.promo_codes.max_price')
+        %dd= f.text_field :max_price, :class => 'text'
+      %dl.third
+        %dt= f.label :end_at, t('shoppe.promo_codes.end_at')
+        %dd= f.text_field :end_at, :class => 'text datetimepicker', :value => f.object.end_at && f.object.end_at.strftime("%Y-%m-%d %H:%M")
+    .splitContainer
+      %dl.quarter
+        %dt= f.label :active,  t('shoppe.promo_codes.active?')
+        %dd.checkbox
+          = f.check_box :active
+          = f.label :active, t('shoppe.promo_codes.active')
+      %dl.three-quarter
+  %p.submit
+    - unless @promo_code.new_record?
+      %span.right
+        = link_to t('shoppe.delete'), @promo_code, :class => 'button purple', :method => :delete, :data => {:confirm => t('shoppe.promo_codes.delete_confirmation')}
+    = f.submit t('shoppe.submit'), :class => 'button green'
+    = link_to t('shoppe.cancel'), :promo_codes, :class => 'button'

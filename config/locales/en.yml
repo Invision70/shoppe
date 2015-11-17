@@ -657,6 +657,24 @@ en:
       update_notice: Tax rate has been updated successfully
       all_states: All states (default)
 
+    promo_codes:
+      promo_codes: Promo Codes
+      new_promo_code: New Promo Code
+      code: Code
+      end_at: Date end
+      discount: Discount $
+      active: Active
+      active?: Active?
+      max_price: Order max price $
+      min_price: Order min price $
+      description: Description
+      delete: Delete
+      back: Back
+      update_notice: Promo code has been updated successfully
+      delete_confirmation:  Are you sure you wish to remove this promo code?
+      create_notice: Promo code has been added successfully
+      destroy_notice: Promo code has been removed successfully
+
     users:
       back_to_users: Back to users
       create_notice: User has been created successfully
@@ -775,6 +793,7 @@ en:
     navigation:
       admin_primary:
         customers: Customers
+        promo_codes: Promo Codes
         orders: Orders
         products: Products
         product_categories: Product Categories

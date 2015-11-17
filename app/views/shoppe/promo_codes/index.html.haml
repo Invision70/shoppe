@@ -1,0 +1,8 @@
+- @page_title = t('shoppe.promo_codes.promo_codes')
+
+= content_for :header do
+  %p.buttons
+    = link_to t('shoppe.promo_codes.new_promo_code') , :new_promo_code, :class => 'button green'
+  %h2.countries= t('shoppe.promo_codes.promo_codes')
+
+= render 'grid'

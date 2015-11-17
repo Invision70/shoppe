@@ -1,0 +1,20 @@
+<%= grid(@promo_codes) do |g|
+  g.blank_slate content_tag(:div, "No records found", id: 'flash-notice')
+
+  g.column name: t('shoppe.promo_codes.code'), attribute: 'code' do |promo_code|
+    link_to promo_code.code, [:edit, promo_code]
+  end
+
+  g.column name: t('shoppe.promo_codes.discount'), attribute: 'discount' do |promo_code|
+    number_to_currency promo_code.discount
+  end
+
+  g.column name: t('shoppe.promo_codes.end_at'), attribute: 'end_at' do |promo_code|
+    promo_code.end_at && promo_code.end_at.to_s(:long)
+  end
+
+  g.column name: t('shoppe.promo_codes.active'), attribute: 'active' do |promo_code|
+    boolean_tag promo_code.active?
+  end
+
+end -%>

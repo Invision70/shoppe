@@ -13,6 +13,9 @@
     %dl
       %dd= f.text_area :notes, :class => 'text'
 
+  = field_set_tag  t('shoppe.orders.discount') do
+    %dl
+      %dd= f.text_field :discount, :class => 'text'
   = field_set_tag t('shoppe.orders.ordered_products'), :class => 'padded' do
     = render 'order_items_form', :f => f
 
