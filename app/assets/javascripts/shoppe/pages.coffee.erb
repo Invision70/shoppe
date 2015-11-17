@@ -1,0 +1,8 @@
+#= require shoppe/nicedit
+
+bkLib.onDomLoaded(->
+  myNicEditor = new nicEditor
+  $("textarea.wysiwyg").each (index) ->
+    $(this).attr("id","niceditor_"+index)
+    new nicEditor({iconsPath: "<%= image_path('shoppe/nicEditorIcons.gif') %>"}).panelInstance('niceditor_'+index);
+)

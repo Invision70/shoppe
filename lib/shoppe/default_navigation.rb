@@ -17,5 +17,6 @@ Shoppe::NavigationManager.build(:admin_primary) do
   add_item :promo_codes
   add_item :users
   add_item :newsletters
+  add_item :pages
   add_item :settings
 end

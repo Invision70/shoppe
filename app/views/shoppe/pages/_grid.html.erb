@@ -1,0 +1,21 @@
+<%= grid(@pages) do |g|
+
+  g.blank_slate content_tag(:div, "No records found", id: 'flash-notice')
+
+  g.column name: t('shoppe.pages.title'), attribute: 'title' do |page|
+    link_to page.title, [:edit, page]
+  end
+
+  g.column name: t('shoppe.pages.published'), attribute: 'published' do |page|
+    boolean_tag page.published?
+  end
+
+  g.column name: t('shoppe.pages.show_menu'), attribute: 'show_menu' do |page|
+    boolean_tag page.show_menu?
+  end
+
+  g.column name: t('shoppe.pages.priority'), attribute: 'priority' do |page|
+    page.priority
+  end
+
+end -%>

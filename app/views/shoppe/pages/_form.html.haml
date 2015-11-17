@@ -1,0 +1,37 @@
+= form_for @page do |f|
+  = f.error_messages
+  = field_set_tag t('shoppe.pages.page_details') do
+    .splitContainer
+      %dl.third
+        %dt= f.label :title, t('shoppe.pages.title')
+        %dd= f.text_field :title, :class => 'focus text'
+      %dl.third
+        %dt= f.label :menu_title, t('shoppe.pages.menu_title')
+        %dd= f.text_field :menu_title, :class => 'text', :placeholder => t('shoppe.optional_field'), :value => f.object.read_attribute(:menu_title)
+      %dl.third
+        %dt= f.label :priority, t('shoppe.pages.priority')
+        %dd= f.text_field :priority, :class => 'text'
+    %div{:style => 'margin-bottom: 20px'}
+      %dl
+        %dt= f.label :content, t('shoppe.pages.content')
+        %dd= f.text_area :content, :class => 'text wysiwyg', :style => 'width: 100%;'
+    .splitContainer
+      %dl.quarter
+        %dt= f.label :published,  t('shoppe.pages.published?')
+        %dd.checkbox
+          = f.check_box :published
+          = f.label :published, t('shoppe.pages.published')
+      %dl.three-quarter
+    .splitContainer
+      %dl.quarter
+        %dt= f.label :show_menu,  t('shoppe.pages.show_menu?')
+        %dd.checkbox
+          = f.check_box :show_menu
+          = f.label :show_menu, t('shoppe.pages.show_menu')
+      %dl.three-quarter
+  %p.submit
+    - unless @page.new_record?
+      %span.right
+        = link_to t('shoppe.delete'), @page, :class => 'button purple', :method => :delete, :data => {:confirm => t('shoppe.pages.delete_confirmation')}
+    = f.submit t('shoppe.submit'), :class => 'button green'
+    = link_to t('shoppe.cancel'), :pages, :class => 'button'

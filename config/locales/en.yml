@@ -187,6 +187,7 @@ en:
     import: Import
     remove: Remove
     preview: Preview
+    optional_field: (optional)
 
     removed_it: "%{it} has been removed successfully"
     save_settings: Save Settings
@@ -266,17 +267,34 @@ en:
       created_successfully: Newsletter has been created successfully.
       updated_successfully: Newsletter has been updated successfully.
       deleted_successfully: Newsletter has been deleted successfully.
+    pages:
+      back: Back to pages
+      pages: Pages
+      page_details: Page Information
+      create_notice: Page has been created successfully
+      delete_confirmation: Are you sure you wish to remove this page?
+      destroy_notice: Page has been removed successfully
+      update_notice: Page has been updated successfully
+      new_page: New page
+      title: Title
+      menu_title: Menu title
+      published: Published
+      published?: Published?
+      show_menu: Show on menu
+      show_menu?: Show on menu?
+      priority: Priority
+      content: Content
     states:
-          back: Back to states
-          states: States
-          country_details: State details
-          create_notice: State has been created successfully
-          delete_confirmation: Are you sure you wish to remove this state?
-          destroy_notice: State has been removed successfully
-          code: Code
-          name: Name
-          new_state: New state
-          update_notice: State has been updated successfully
+      back: Back to states
+      states: States
+      country_details: State details
+      create_notice: State has been created successfully
+      delete_confirmation: Are you sure you wish to remove this state?
+      destroy_notice: State has been removed successfully
+      code: Code
+      name: Name
+      new_state: New state
+      update_notice: State has been updated successfully
 
     countries:
       back: Back to countries
@@ -803,6 +821,7 @@ en:
         users: Users
         countries: Countries
         newsletters: Newsletter
+        pages: Pages
         states: States
         settings: Settings
 

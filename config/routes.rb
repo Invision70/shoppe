@@ -54,6 +54,7 @@ Shoppe::Engine.routes.draw do
   resources :product_attributes
   resources :newsletters
   resources :promo_codes
+  resources :pages
 
   get 'settings'=> 'settings#edit'
   post 'settings' => 'settings#update'
