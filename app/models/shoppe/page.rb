@@ -1,7 +1,9 @@
 module Shoppe
   class Page < ActiveRecord::Base
     # Validations
-    validates :title, :content, :presence => true
+    validates :title, :permalink, :content, :presence => true
+    validates :permalink, :uniqueness => true
+
     # All pages ordered by priority desending
     scope :ordered, -> { order(:priority => :desc)}
     scope :published, -> { where(:published => true)}

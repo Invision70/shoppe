@@ -2,13 +2,16 @@
   = f.error_messages
   = field_set_tag t('shoppe.pages.page_details') do
     .splitContainer
-      %dl.third
+      %dl.quarter
         %dt= f.label :title, t('shoppe.pages.title')
-        %dd= f.text_field :title, :class => 'focus text'
-      %dl.third
+        %dd= f.text_field :title, :class => 'focus text', :data => {:permalink => 'page_permalink'}
+      %dl.quarter
+        %dt= f.label :permalink, t('shoppe.pages.permalink')
+        %dd= f.text_field :permalink, :class => 'text'
+      %dl.quarter
         %dt= f.label :menu_title, t('shoppe.pages.menu_title')
         %dd= f.text_field :menu_title, :class => 'text', :placeholder => t('shoppe.optional_field'), :value => f.object.read_attribute(:menu_title)
-      %dl.third
+      %dl.quarter
         %dt= f.label :priority, t('shoppe.pages.priority')
         %dd= f.text_field :priority, :class => 'text'
     %div{:style => 'margin-bottom: 20px'}

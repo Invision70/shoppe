@@ -40,7 +40,7 @@ module Shoppe
     private
 
     def safe_params
-      params[:page].permit(:title, :menu_title, :content, :published, :show_menu, :priority)
+      params[:page].permit(:title, :menu_title, :permalink, :content, :published, :show_menu, :priority)
     end
 
   end
