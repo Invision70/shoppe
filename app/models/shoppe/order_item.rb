@@ -3,6 +3,9 @@ module Shoppe
 
     self.table_name = 'shoppe_order_items'
 
+    # Require dependencies
+    require_dependency 'shoppe/order_item/discount'
+
     # The associated order
     #
     # @return [Shoppe::Order]
