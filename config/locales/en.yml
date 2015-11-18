@@ -325,9 +325,11 @@ en:
       create_notice: Price has been created successfully
       delivery_services: Delivery Services
       destroy_notice: Price has been removed successfully
-      identification_weight: Identification & Weight
+      identification_weight: Identification
       max_weight: Max weight
       min_weight: Min weight
+      max_price: Max price
+      min_price: Min price
       new_price: New price
       no_tax: No tax
       price: Price
@@ -336,6 +338,7 @@ en:
       tax_rate: Tax rate
       update_notice: Price has been updated successfully
       weight_allowance: Weight Allowance
+      price_allowance: Price Allowance
 
       help:
         countries: This delivery rate will only be available to orders where the country selected is listed here.

@@ -142,7 +142,7 @@ module Shoppe
     # @return [Array] an array of Shoppe:DeliveryServicePrice objects
     def delivery_service_prices
       if delivery_required?
-        prices = Shoppe::DeliveryServicePrice.joins(:delivery_service).where(:shoppe_delivery_services => {:active => true}).order(:price).for_weight(total_weight)
+        prices = Shoppe::DeliveryServicePrice.joins(:delivery_service).where(:shoppe_delivery_services => {:active => true}).order(:price).for_weight_or_price(total_weight, items_sub_total)
         prices = prices.select { |p| p.countries.empty? || p.country?(self.delivery_country) }
         prices.sort{ |x,y| (y.delivery_service.default? ? 1 : 0) <=> (x.delivery_service.default? ? 1 : 0) } # Order by truthiness
       else
@@ -161,7 +161,7 @@ module Shoppe
     #
     # @return [BigDecimal]
     def delivery_service_price
-      self.delivery_service && self.delivery_service.delivery_service_prices.for_weight(self.total_weight).first
+      self.delivery_service && self.delivery_service.delivery_service_prices.for_weight_or_price(self.total_weight, self.items_sub_total).first
     end
 
     # The price for delivering this order in its current state

@@ -38,7 +38,7 @@ module Shoppe
     private
 
     def safe_params
-      params[:delivery_service_price].permit(:price, :cost_price, :tax_rate_id, :min_weight, :max_weight, :code, :country_ids => [])
+      params[:delivery_service_price].permit(:price, :cost_price, :tax_rate_id, :min_weight, :max_weight, :min_price, :max_price, :code, :country_ids => [])
     end
 
   end

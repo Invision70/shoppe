@@ -12,12 +12,14 @@
       %tr
         %th= t('shoppe.delivery_service_prices.code')
         %th= t('shoppe.delivery_service_prices.weight_allowance')
+        %th= t('shoppe.delivery_service_prices.price_allowance')
         %th= t('shoppe.delivery_service_prices.price')
         %th= t('shoppe.delivery_service_prices.cost')
     %tbody
       - for price in @delivery_service_prices
         %tr
           %td= link_to price.code, [:edit, @delivery_service, price]
-          %td #{number_to_weight price.min_weight} &rarr; #{number_to_weight price.max_weight}
+          %td #{number_to_weight price.min_weight || 0} &rarr; #{number_to_weight price.max_weight || 0}
+          %td #{number_to_currency price.min_price || 0} &rarr; #{number_to_currency price.max_price || 0}
           %td= number_to_currency(price.price)
           %td= number_to_currency price.cost_price
