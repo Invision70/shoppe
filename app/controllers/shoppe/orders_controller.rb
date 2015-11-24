@@ -21,11 +21,14 @@ module Shoppe
 
         if safe_params[:customer_id]
           @customer = Shoppe::Customer.find safe_params[:customer_id]
-          @order.first_name = @customer.first_name
-          @order.last_name = @customer.last_name
+          @order.billing_first_name = @customer.first_name
+          @order.billing_last_name = @customer.last_name
+          @order.delivery_first_name = @customer.first_name
+          @order.delivery_last_name = @customer.last_name
           @order.company = @customer.company
           @order.email_address = @customer.email
-          @order.phone_number = @customer.phone
+          @order.billing_phone_number = @customer.phone
+          @order.delivery_phone_number = @customer.phone
           if @customer.addresses.billing.present?
             billing = @customer.addresses.billing.first
             @order.billing_address1 = billing.address1

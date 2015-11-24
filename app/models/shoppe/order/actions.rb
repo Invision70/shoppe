@@ -1,13 +1,13 @@
 module Shoppe
   class Order < ActiveRecord::Base
-    
+
     extend ActiveModel::Callbacks
-    
+
     # These additional callbacks allow for applications to hook into other
     # parts of the order lifecycle.
     define_model_callbacks :confirmation, :acceptance, :rejection
-  
-    # This method should be called by the base application when the user has completed their 
+
+    # This method should be called by the base application when the user has completed their
     # first round of entering details. This will mark the order as "confirming" which means
     # the customer now just must confirm.
     #
@@ -21,7 +21,7 @@ module Shoppe
         false
       end
     end
-  
+
     # This method should be executed by the application when the order should be completed
     # by the customer. It will raise exceptions if anything goes wrong or return true if
     # the order has been confirmed successfully
@@ -45,14 +45,14 @@ module Shoppe
         # Send an email to the customer
         deliver_received_order_email
       end
-    
+
       # We're all good.
       true
     end
-  
+
     # Mark order as accepted
     #
-    # @param user [Shoppe::User] the user who carried out this action    
+    # @param user [Shoppe::User] the user who carried out this action
     def accept!(user = nil)
       run_callbacks :acceptance do
         self.accepted_at = Time.now
@@ -63,7 +63,7 @@ module Shoppe
         deliver_accepted_order_email
       end
     end
-  
+
     # Mark order as rejected
     #
     # @param user [Shoppe::User] the user who carried out the action
@@ -89,6 +89,6 @@ module Shoppe
     def deliver_received_order_email
       Shoppe::OrderMailer.received(self).deliver_now
     end
-    
+
   end
 end

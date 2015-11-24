@@ -67,7 +67,8 @@ module Shoppe
 
     # Localisations
     translates :name, :permalink, :description
-    scope :ordered, -> { includes(:translations).order(:name) }
+    scope :ordered, -> { order(:name) }
+    default_scope { includes(:parent, :translations) }
 
     def attachments=(attrs)
       if attrs["default_image"]["file"].present? then self.attachments.build(attrs["default_image"]) end

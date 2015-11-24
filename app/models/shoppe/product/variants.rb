@@ -107,7 +107,7 @@ module Shoppe
     # @return [Shoppe::Product]
     def default_variant
       return nil if self.parent
-      @default_variant ||= self.variants.select { |v| v.default? }.first
+      @default_variant ||= self.variants.includes(:parent).select { |v| v.default? }.first
     end
 
     # Return the name of the product

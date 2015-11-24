@@ -25,7 +25,7 @@
       %td= @order.number
       %td= @order.received? ? @order.received_at.to_s(:long) : 'n/a'
       %td= number_to_weight @order.total_weight
-      %td= @order.phone_number
+      %td= @order.billing_phone_number
 
   %table.items
     %thead

@@ -16,13 +16,15 @@ module Shoppe
 
     # Validations
     with_options :if => Proc.new { |o| !o.building? } do |order|
-      order.validates :first_name, :presence => true
-      order.validates :last_name, :presence => true
+      order.validates :billing_first_name, :presence => true
+      order.validates :billing_last_name, :presence => true
       order.validates :billing_address1, :presence => true
       order.validates :billing_address3, :presence => true
       order.validates :billing_postcode, :presence => true
       order.validates :billing_country, :presence => true
       order.validates :billing_state, :presence => true, :if => Proc.new{|f| f.billing_country.try(:code2) == 'US' }
+      order.validates :billing_phone_number, :format => {:with => /\A[+?\d\ \-x\(\)]{7,}\z/}
+
     end
 
     # The name for billing purposes

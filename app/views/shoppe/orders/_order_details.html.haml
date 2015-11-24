@@ -35,7 +35,7 @@
       %dt= t('shoppe.orders.email_address')
       %dd= mail_to @order.email_address
       %dt= t('shoppe.orders.telephone')
-      %dd= @order.phone_number
+      %dd= @order.billing_phone_number
       %dt= t('shoppe.orders.weight')
       %dd= number_to_weight @order.total_weight
       - if @order.received?

@@ -1,8 +1,6 @@
 .customerSearch{:style => action_name == 'search' ? "display:block" : ''}
   = search_form_for @query, :url => search_customers_path, :html => { :method => :post } do |f|
     %dl.left
-      %dt= f.label :first_name_or_last_name_or_company_cont, t('shoppe.customers.first_or_last_name')
-      %dd= f.text_field :first_name_or_last_name_or_company_cont
       %dt= f.label :company_cont, t('shoppe.customers.company')
       %dd= f.text_field :company_cont
     %dl.right

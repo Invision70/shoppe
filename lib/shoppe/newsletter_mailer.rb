@@ -1,6 +1,6 @@
 module Shoppe
   class NewsletterMailer < ActionMailer::Base
-    default from: Shoppe.settings.email_address
+    default from: Shoppe.settings.email_from
 
     def prepare_mail(email, subject, message)
       @message = message.html_safe

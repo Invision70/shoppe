@@ -26,11 +26,15 @@ module Shoppe
 
     # Validations
     with_options :if => :separate_delivery_address? do |order|
-      order.validates :delivery_name, :presence => true
+      order.validates :delivery_first_name, :presence => true
+      order.validates :delivery_last_name, :presence => true
       order.validates :delivery_address3, :presence => true
+      order.validates :delivery_address1, :presence => true
       order.validates :delivery_postcode, :presence => true
       order.validates :delivery_country, :presence => true
       order.validates :delivery_state, :presence => true, :if => Proc.new{|f| f.delivery_country.try(:code2) == 'US' }
+      order.validates :delivery_phone_number, :format => {:with => /\A[+?\d\ \-x\(\)]{7,}\z/}
+
     end
 
     validate do
