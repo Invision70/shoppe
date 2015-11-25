@@ -52,7 +52,9 @@ Shoppe::Engine.routes.draw do
   resources :states
   resources :attachments, :only => :destroy
   resources :product_attributes
-  resources :newsletters
+  resources :newsletters do
+    get :restore
+  end
   resources :promo_codes
   resources :pages
 

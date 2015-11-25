@@ -9,6 +9,18 @@ module Shoppe
       @newsletter_form = Shoppe::Newsletter::Form.new(safe_params || Hash.new)
     end
 
+    def restore
+      @newsletter_job = Delayed::Job.with_deleted.find(params[:newsletter_id])
+      @newsletter_job.update_attributes({
+          :locked_at => nil,
+          :locked_by => nil,
+          :failed_at => nil,
+          :attempts => 0,
+          :last_error => nil,
+      })
+      redirect_to newsletters_path, flash: { notice: t('shoppe.newsletters.restored_successfully') }
+    end
+
     def create
       @newsletter_form = Shoppe::Newsletter::Form.new(safe_params)
       if @newsletter_form.valid?
