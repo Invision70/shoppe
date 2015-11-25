@@ -6,7 +6,7 @@
   end
 
   g.column name: t('shoppe.promo_codes.discount'), attribute: 'discount' do |promo_code|
-    number_to_currency promo_code.discount
+    promo_code.discount_text
   end
 
   g.column name: t('shoppe.promo_codes.end_at'), attribute: 'end_at' do |promo_code|

@@ -2,13 +2,17 @@
   = f.error_messages
   = field_set_tag t('shoppe.promo_codes.promo_code') do
     .splitContainer
-      %dl.third
+      %dl.quarter
         %dt= f.label :code, t('shoppe.promo_codes.code')
         %dd= f.text_field :code, :class => 'focus text'
-      %dl.third
+      %dl.quarter
         %dt= f.label :discount, t('shoppe.promo_codes.discount')
-        %dd= f.text_field :discount, :class => 'text'
-      %dl.third
+        %dd
+          = f.text_field :discount, :class => 'text'
+      %dl.quarter
+        %dt= f.label :type, t('shoppe.promo_codes.type')
+        %dd= select_tag('promo_code[type]', options_for_select(Shoppe::PromoCode::TYPES, f.object.type), :class => 'chosen')
+      %dl.quarter
         %dt= f.label :description, t('shoppe.promo_codes.description')
         %dd= f.text_field :description, :class => 'text'
     .splitContainer

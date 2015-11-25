@@ -683,7 +683,8 @@ en:
       new_promo_code: New Promo Code
       code: Code
       end_at: Date end
-      discount: Discount $
+      discount: Discount
+      type: Type
       active: Active
       active?: Active?
       max_price: Order max price $

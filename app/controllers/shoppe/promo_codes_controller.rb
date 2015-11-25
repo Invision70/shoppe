@@ -40,7 +40,7 @@ module Shoppe
     private
 
     def safe_params
-      params[:promo_code].permit(:code, :discount, :description, :min_price, :max_price, :end_at, :active)
+      params[:promo_code].permit(:code, :discount, :type, :description, :min_price, :max_price, :end_at, :active)
     end
 
   end
