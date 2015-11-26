@@ -264,6 +264,8 @@ en:
       message: Message
       emails: Recipient emails
       delete: Delete
+      restore: Restore
+      restored_successfully: Newsletter has been restored successfully.
       created_successfully: Newsletter has been created successfully.
       updated_successfully: Newsletter has been updated successfully.
       deleted_successfully: Newsletter has been deleted successfully.
