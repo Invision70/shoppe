@@ -6,7 +6,7 @@ module Shoppe
     def perform
       emails.each_with_index do |e,i|
         next if @last_step && @last_step+1 > i
-        NewsletterMailer.prepare_mail(e, subject, message).deliver
+        NewsletterMailer.prepare_mail(e, subject, message).deliver if e.present?
         @last_step = i
       end
     end

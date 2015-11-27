@@ -7,6 +7,16 @@
       %dd= f.select :address_type, Shoppe::Address::TYPES, {}, :class => "chosen"
     .splitContainer
       %dl.third
+        %dt= f.label :first_name
+        %dd= f.text_field :first_name, :class => "text"
+      %dl.third
+        %dt= f.label :last_name
+        %dd= f.text_field :last_name, :class => "text"
+      %dl.third
+        %dt= f.label :phone_number
+        %dd= f.text_field :phone_number, :class => "text"
+    .splitContainer
+      %dl.third
         %dt= f.label :address1
         %dd= f.text_field :address1, :class => "text"
       %dl.third
