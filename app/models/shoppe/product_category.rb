@@ -5,6 +5,8 @@ module Shoppe
 
     include TheSortableTree::Scopes
     include TheSortableTreeHelper
+    include ActionView::Helpers::SanitizeHelper
+
 
     # Allow the nesting of product categories
     # :restrict_with_exception relies on a fix to the awesome_nested_set gem
@@ -42,7 +44,9 @@ module Shoppe
     def attachments=(attrs)
       if attrs["image"]["file"].present? then self.attachments.build(attrs["image"]) end
     end
-
+    def description
+      sanitize read_attribute(:description), tags: %w(strong em a b u i ul li dl dd dt p br font div), attributes: %w(href target color)
+    end
     def combined_permalink
       if self.permalink_includes_ancestors && self.ancestral_permalink.present?
         "#{self.ancestral_permalink}/#{self.permalink}"

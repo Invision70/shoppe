@@ -29,7 +29,7 @@ module Shoppe
 
     # Validations
     validates :address_type, :presence => true, :inclusion => {:in => TYPES}
-    validates :address1, :postcode, :country, :first_name, :last_name, :phone_number, :address3, :presence => true
+    validates :address1, :postcode, :country, :state, :first_name, :last_name, :phone_number, :address3, :presence => true
 
     # All addresses ordered by their id asending
     scope :ordered, -> { order(:id => :desc)}

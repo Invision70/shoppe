@@ -16,7 +16,7 @@
           = f.label :permalink_includes_ancestors, t('shoppe.product_category.permalink_includes_ancestors')
     %dl.cleared
       %dt= f.label :description, t('shoppe.product_category.description')
-      %dd= f.text_area :description, :class => 'text'
+      %dd= f.text_area :description, :class => 'wysiwyg', :style => 'width: 100%'
 
   = field_set_tag t('shoppe.product_category.nesting.category_nesting') do
     %dl
