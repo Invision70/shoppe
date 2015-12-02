@@ -47,6 +47,7 @@ module Shoppe
     before_save do
 
       self.full_sku = self.full_sku_tree
+      self.stock_availability = self.in_stock?
 
       if self.has_variants? && self.valid?
 
