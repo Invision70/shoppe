@@ -1,0 +1,19 @@
+- @page_title = t('shoppe.navigation.admin_primary.newsletters')
+
+= content_for :header do
+  %h2.countries= t('shoppe.navigation.admin_primary.newsletters')
+
+= form_for @newsletter_form, :url => newsletter_path(@newsletter_job), :method => :put do |f|
+  = f.error_messages
+  = field_set_tag t('shoppe.newsletters.edit') do
+    %dl
+      %dt= f.label :subject, t('shoppe.newsletters.subject')
+      %dd= f.text_field :subject, :class => 'focus text'
+    %dl
+      %dt= f.label :message, t('shoppe.newsletters.message')
+      %dd= f.text_area :message, :class => 'wysiwyg', :style => 'width: 100%'
+    %dl
+      %dt
+      %dd
+        = f.submit t('shoppe.save'), :class => 'button green'
+        = f.submit t('shoppe.preview'), :class => 'button', :name => 'preview', :formtarget => '_blank'

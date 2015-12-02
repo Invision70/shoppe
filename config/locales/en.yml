@@ -184,6 +184,8 @@ en:
     delete: Delete
     create: Create
     edit: Edit
+    update: Update
+    save: Save
     import: Import
     remove: Remove
     preview: Preview
@@ -260,6 +262,7 @@ en:
       run_at: Run
       finished_at: Finished
       error: Error
+      edit: Edit
       subject: Subject
       message: Message
       emails: Recipient emails

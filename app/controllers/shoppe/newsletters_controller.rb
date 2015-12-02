@@ -4,9 +4,9 @@ module Shoppe
     before_filter { @active_nav = :newsletters }
     before_filter { params[:id] && @newsletter_job = Delayed::Job.with_deleted.find(params[:id]) }
     before_filter { @newsletters = Delayed::Job.with_deleted.order('id DESC') }
+    before_filter { @newsletter_form = Shoppe::Newsletter::Form.new(safe_params || Hash.new) }
 
     def index
-      @newsletter_form = Shoppe::Newsletter::Form.new(safe_params || Hash.new)
     end
 
     def restore
@@ -25,10 +25,7 @@ module Shoppe
       @newsletter_form = Shoppe::Newsletter::Form.new(safe_params)
       if @newsletter_form.valid?
         if params[:preview]
-          @subject = @newsletter_form.subject
-          @message = @newsletter_form.message.html_safe
-          @preview = true
-          render 'shoppe/mailer/newsletter', :layout => nil
+          render_preview
         else
           form_emails = @newsletter_form.emails.split("\r\n")
           Delayed::Job.enqueue NewsletterJob.new(@newsletter_form.subject, @newsletter_form.message, form_emails.blank? ? Shoppe::Customer.subscribed.collect(&:email) : form_emails)
@@ -39,6 +36,30 @@ module Shoppe
       end
     end
 
+
+    def edit
+      payload = @newsletter_job.payload_object
+      @newsletter_form = Shoppe::Newsletter::Form.new({:message => payload.message, :subject => payload.subject})
+    end
+
+    def update
+      @newsletter_form = Shoppe::Newsletter::Form.new(safe_params)
+      unless @newsletter_form.valid?
+        return render action: 'edit'
+      end
+
+      if params[:preview]
+        render_preview
+      else
+        @newsletter_job.payload_object.subject = safe_params[:subject]
+        @newsletter_job.payload_object.message = safe_params[:message]
+        @newsletter_job.payload_object=(@newsletter_job.payload_object)
+        @newsletter_job.save
+        redirect_to newsletters_path, flash: { notice: t('shoppe.newsletters.updated_successfully') }
+      end
+    end
+
+
     def destroy
       @newsletter_job.destroy!
       redirect_to newsletters_path, flash: { notice: t('shoppe.newsletters.deleted_successfully') }
@@ -46,9 +67,16 @@ module Shoppe
 
     private
 
-    def safe_params
-      params[:shoppe_newsletter_form].permit(:subject, :message, :emails) if params[:shoppe_newsletter_form]
-    end
+      def render_preview
+        @subject = @newsletter_form.subject
+        @message = @newsletter_form.message.html_safe
+        @preview = true
+        render 'shoppe/mailer/newsletter', :layout => nil
+      end
+
+      def safe_params
+        params[:shoppe_newsletter_form].permit(:subject, :message, :emails) if params[:shoppe_newsletter_form]
+      end
 
   end
 end

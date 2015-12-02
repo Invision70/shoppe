@@ -16,7 +16,7 @@
       %th= t('shoppe.newsletters.run_at')
       %th= t('shoppe.newsletters.finished_at')
       %th= t('shoppe.newsletters.error')
-      %th{:width => '120'}
+      %th{:width => '160'}
   %tbody
     - if @newsletters.empty?
       %tr.empty
@@ -41,5 +41,6 @@
             - else
               = boolean_tag(false)
           %td
+            = link_to t('shoppe.newsletters.edit'), edit_newsletter_path(newsletter), :class => 'button button-mini green'
             = link_to t('shoppe.newsletters.restore'), newsletter_restore_path(newsletter), :class => 'button button-mini green' if newsletter.last_error
             = link_to t('shoppe.newsletters.delete'), newsletter_path(newsletter), :class => 'button button-mini purple', :method => :delete
