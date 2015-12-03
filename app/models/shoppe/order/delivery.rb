@@ -34,7 +34,7 @@ module Shoppe
       order.validates :delivery_country, :presence => true
       order.validates :delivery_state, :presence => true, :if => Proc.new{|f| f.delivery_country.try(:code2) == 'US' }
       order.validates :delivery_phone_number, :format => {:with => /\A[+?\d\ \-x\(\)]{7,}\z/}
-
+      order.validates :delivery_first_name, :delivery_last_name, :delivery_address1, :delivery_address2, :delivery_address3, :delivery_province, :latin => true, :if => Proc.new{ Shoppe.settings.only_latin_address? }
     end
 
     validate do

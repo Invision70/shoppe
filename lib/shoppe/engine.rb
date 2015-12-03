@@ -25,7 +25,7 @@ module Shoppe
 
     initializer 'shoppe.initialize' do |app|
       # Add the default settingsemail_from
-      Shoppe.add_settings_group :system_settings, [:store_name, :email_address, :email_from, :currency_unit, :tax_name, :demo_mode]
+      Shoppe.add_settings_group :system_settings, [:store_name, :email_address, :email_from, :currency_unit, :tax_name, :demo_mode, :only_latin_address]
 
       # Add middleware
       app.config.middleware.use Shoppe::SettingsLoader

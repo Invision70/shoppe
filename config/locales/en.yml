@@ -845,6 +845,7 @@ en:
       types:
         # Force certain settings to certain type
         demo_mode: boolean
+        only_latin_address: boolean
 
       labels:
         # Labels for fields go here
@@ -874,6 +875,7 @@ en:
       defaults:
         currency_unit: $
         demo_mode: false
+        only_latin_address: false
         email_address: sales@example.com
         store_name: Widgets Inc.
         tax_name: Tax

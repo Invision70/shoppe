@@ -24,6 +24,7 @@ module Shoppe
       order.validates :billing_country, :presence => true
       order.validates :billing_state, :presence => true, :if => Proc.new{|f| f.billing_country.try(:code2) == 'US' }
       order.validates :billing_phone_number, :format => {:with => /\A[+?\d\ \-x\(\)]{7,}\z/}
+      order.validates :billing_first_name, :billing_last_name, :billing_address1, :billing_address2, :billing_address3, :billing_province, :latin => true, :if => Proc.new{ Shoppe.settings.only_latin_address? }
 
     end
 

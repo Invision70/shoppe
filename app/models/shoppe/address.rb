@@ -30,6 +30,7 @@ module Shoppe
     # Validations
     validates :address_type, :presence => true, :inclusion => {:in => TYPES}
     validates :address1, :postcode, :country, :state, :first_name, :last_name, :phone_number, :address3, :presence => true
+    validates :first_name, :last_name, :address1, :address2, :address3, :province, :latin => true, :if => Proc.new{ Shoppe.settings.only_latin_address? }
 
     # All addresses ordered by their id asending
     scope :ordered, -> { order(:id => :desc)}
