@@ -29,6 +29,11 @@ module Shoppe
       end
     end
 
+    after_save {
+      images = Shoppe::Attachment.where(parent_id: self.parent_id, role: 'default_image')
+      images.first.destroy! if images.count > 1
+    }
+
     # Return the attachment for a given role
     def self.for(role)
       self.where(:role => role).first
