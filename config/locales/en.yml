@@ -370,7 +370,7 @@ en:
       prices: Prices
       set_prices: Set Prices
       tracking_url: Tracking URL
-      tracking_url_help_html: Use <code>{{consignment_number}}</code> to insert the consignment number.
+      tracking_url_help_html: Use <code>{{consignment_number}}</code> to insert the tracking number.
       update_notice: Delivery Service has been updated successfully
 
     imports:
@@ -394,7 +394,7 @@ en:
       billing_delivery_address: Billing/Delivery Address
       build_time: Build time
       company: Company
-      consignment_number: Consignment Number
+      consignment_number: Tracking Number
       cost: Cost
       country: Country
       create_order: Create order
@@ -477,13 +477,13 @@ en:
 
       status_bar:
         by_user: "by %{user}"
-        consignment_no_html: "Consignment #<b>%{consignment_number}</b>"
+        consignment_no_html: "Tracking #<b>%{consignment_number}</b>"
         from_ip: "from %{ip}"
         on_date: "on %{on}"
         tracking_url:  Tracking URL
 
       despatch_note:
-        despatch_note: Despatch note
+        despatch_note: Packing list
         footer: Thank you for your order!
         order_number: Order number
         order_placed: Order placed

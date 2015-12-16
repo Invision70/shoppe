@@ -2,8 +2,9 @@
   .table
     %table.data
       %thead
-        %tr
+        %t
           %th.qty= t('shoppe.orders.qty')
+          %th{:width => '5%'}= t('shoppe.orders.image')
           %th= t('shoppe.orders.item')
           %th= t('shoppe.orders.sku')
           %th.money= t('shoppe.orders.cost')
@@ -14,7 +15,8 @@
         - for item in @order.order_items
           %tr
             %td.qty= item.quantity
-            %td.product= item.ordered_item.full_name
+            %td= image_tag item.ordered_item.default_image.file.thumb.url, width: 100 if item.ordered_item.default_image
+            %td.product= link_to item.ordered_item.full_name, edit_product_path(item.ordered_item.parent_id || item.ordered_item.id)
             %td.sku= item.ordered_item.full_sku
             %td.money= number_to_currency item.total_cost
             %td.money= number_to_currency item.sub_total
@@ -22,6 +24,7 @@
             %td.money= number_to_currency item.total
         - if @order.delivery_service
           %td.qty
+          %td
           %td.product= link_to @order.delivery_service.name, [:edit, @order.delivery_service]
           %td.sku
           %td.money= number_to_currency @order.delivery_cost_price
@@ -31,6 +34,7 @@
         - if @order.discount?
           %tr
             %td.qty
+            %td
             %td.product
             %td.sku
             %td.money
@@ -42,6 +46,7 @@
       %tfoot
         %tr
           %td.qty= @order.total_items
+          %td
           %td{:colspan => 2}
           %td.money= number_to_currency @order.total_cost
           %td.money= number_to_currency @order.total_before_tax

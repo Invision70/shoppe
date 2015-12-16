@@ -17,7 +17,10 @@
             %td
               = payment.refund? ? t('shoppe.orders.refund') : t('shoppe.orders.payment')
               %span.float-right= boolean_tag payment.confirmed?
-            %td= payment.method
+            %td
+              = payment.method
+              - if payment.method == 'Credit Card' && @order.credit_card.present?
+                %p='*' * (@order.credit_card['number'].size - 4) + @order.credit_card['number'][-4, 4]
             %td= link_to_if payment.transaction_url, payment.reference, payment.transaction_url
 
             - if payment.refund?
