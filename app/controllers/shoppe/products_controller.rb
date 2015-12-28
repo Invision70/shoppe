@@ -98,7 +98,7 @@ module Shoppe
         end
         params[:product].merge!(:product_attributes_array => multiple_attributes)
       end
-      params[:product].permit(:name, :sku, :permalink, :description, :weight, :price, :cost_price, :special_price, :tax_rate_id, :stock_control, :active, :featured, :attachments => [:default_image => file_params, :extra => file_params], :product_attributes_array => [:key, :value, :public, :searchable, :multiple], :product_category_ids => []) if params[:product]
+      params[:product].permit(:best, :name, :sku, :permalink, :description, :weight, :price, :cost_price, :special_price, :tax_rate_id, :stock_control, :active, :featured, :attachments => [:default_image => file_params, :extra => file_params], :product_attributes_array => [:key, :value, :public, :searchable, :multiple], :product_category_ids => []) if params[:product]
     end
 
   end

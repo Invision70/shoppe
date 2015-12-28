@@ -5,6 +5,7 @@ module Shoppe
 
     # Require dependencies
     require_dependency 'shoppe/order_item/discount'
+    require_dependency 'shoppe/order_item/gift'
 
     # The associated order
     #
@@ -51,7 +52,7 @@ module Shoppe
     def self.add_item(ordered_item, quantity = 1)
       raise Errors::UnorderableItem, :ordered_item => ordered_item unless ordered_item.orderable?
       transaction do
-        if existing = self.where(:ordered_item_id => ordered_item.id, :ordered_item_type => ordered_item.class.to_s).first
+        if existing = self.item_exists(ordered_item)
           existing.increase!(quantity)
           existing
         else

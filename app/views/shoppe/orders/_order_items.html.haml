@@ -12,11 +12,14 @@
           %th.money= Shoppe.settings.tax_name
           %th.money= t('shoppe.orders.sub_total')
       %tbody
-        - for item in @order.order_items
+        - for item in @order.order_items.order(:gift => :desc)
           %tr
             %td.qty= item.quantity
             %td= image_tag item.ordered_item.default_image.file.thumb.url, width: 100 if item.ordered_item.default_image
-            %td.product= link_to item.ordered_item.full_name, edit_product_path(item.ordered_item.parent_id || item.ordered_item.id)
+            %td.product
+              - if item.gift?
+                %span.gift-order-item Gift
+              = link_to item.ordered_item.full_name, edit_product_path(item.ordered_item.parent_id || item.ordered_item.id)
             %td.sku= item.ordered_item.full_sku
             %td.money= number_to_currency item.total_cost
             %td.money= number_to_currency item.sub_total

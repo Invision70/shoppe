@@ -16,15 +16,18 @@
         %dt= f.label :description, t('shoppe.promo_codes.description')
         %dd= f.text_field :description, :class => 'text'
     .splitContainer
-      %dl.third
+      %dl.quarter
         %dt= f.label :min_price, t('shoppe.promo_codes.min_price')
-        %dd= f.text_field :min_price, :class => 'text'
-      %dl.third
+        %dd= f.text_field :min_price, :class => 'text', :placeholder => Shoppe.settings.currency_unit
+      %dl.quarter
         %dt= f.label :max_price, t('shoppe.promo_codes.max_price')
-        %dd= f.text_field :max_price, :class => 'text'
-      %dl.third
+        %dd= f.text_field :max_price, :class => 'text', :placeholder => Shoppe.settings.currency_unit
+      %dl.quarter
         %dt= f.label :end_at, t('shoppe.promo_codes.end_at')
         %dd= f.text_field :end_at, :class => 'text datetimepicker', :value => f.object.end_at && f.object.end_at.strftime("%Y-%m-%d %H:%M")
+      %dl.quarter
+        %dt= f.label :end_at, t('shoppe.promo_codes.gift_product')
+        %dd= f.select(:gift_product_id, Shoppe::Product.not_variants.collect {|p| [ p.name, p.id ] }, {:include_blank => true}, {:class => 'chosen-with-deselect'})
     .splitContainer
       %dl.quarter
         %dt= f.label :active,  t('shoppe.promo_codes.active?')

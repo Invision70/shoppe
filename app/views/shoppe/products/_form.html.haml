@@ -115,6 +115,10 @@
         %dd.checkbox
           = f.check_box :featured
           = f.label :featured, t('shoppe.products.featured_info')
+      %dl.half
+        %dd.checkbox
+          = f.check_box :best
+          = f.label :best, t('shoppe.products.best_match')
 
   %p.submit
     - unless @product.new_record?

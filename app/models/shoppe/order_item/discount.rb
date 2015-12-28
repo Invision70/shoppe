@@ -6,7 +6,7 @@ module Shoppe
     private
       # Refresh promo code if condition changed
       def refresh_promo_code
-        unless self.order.destroyed?
+        if ! self.order.destroyed? && ! self.gift?
           order_item = self.order.reload
           order_item.apply_promo_code(order_item.promo_code) if order_item.promo_code.present?
         end
