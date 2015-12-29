@@ -22,7 +22,7 @@ module Shoppe
           end
         end
 
-        unless self.discount?
+        if self.discount.nil?
           self.discount = read_attribute(:discount)
           raise Shoppe::Errors::InvalidPromoCode, :order => self
         end
