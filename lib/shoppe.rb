@@ -21,6 +21,7 @@ require 'wice_grid'
 require 'devise'
 require 'the_sortable_tree'
 require 'jstree-rails-4'
+require 'bullet'
 
 module Shoppe
   class << self

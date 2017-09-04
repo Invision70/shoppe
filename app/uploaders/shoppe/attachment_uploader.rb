@@ -37,7 +37,7 @@ class Shoppe::AttachmentUploader < CarrierWave::Uploader::Base
 
   version :big, :if => :image? do
     process :convert => 'jpg'
-    process :resize_to_limit => [900, 900]
+    # process :resize_to_limit => [900, 900]
   end
 
 end

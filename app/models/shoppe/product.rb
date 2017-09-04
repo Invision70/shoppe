@@ -6,6 +6,8 @@ module Shoppe
 
     include ActionView::Helpers::SanitizeHelper
 
+    after_create :link_attachments
+
     self.table_name = 'shoppe_products'
 
     define_model_callbacks :stock_level_changed, :only => [:before, :after]
@@ -15,7 +17,7 @@ module Shoppe
     require_dependency 'shoppe/product/variants'
 
     # Attachments for this product
-    has_many :attachments, :as => :parent, :dependent => :destroy, :autosave => true, :class_name => "Shoppe::Attachment"
+    has_many :attachments, -> { order(sort: :asc, id: :asc) }, :as => :parent, :dependent => :destroy, :autosave => true, :class_name => "Shoppe::Attachment"
 
     # The product's categorizations
     #
@@ -70,7 +72,7 @@ module Shoppe
     scope :ordered, -> { includes(:translations).order(:name) }
 
     def attachments=(attrs)
-      if attrs["default_image"]["file"].present? then self.attachments.build(attrs["default_image"]) end
+      if attrs["default_image"].present? && attrs["default_image"]["file"].present? then self.attachments.build(attrs["default_image"]) end
       if attrs["extra"]["file"].present? then attrs["extra"]["file"].each { |attr| self.attachments.build(file: attr, parent_id: attrs["extra"]["parent_id"], parent_type: attrs["extra"]["parent_type"]) } end
     end
 
@@ -128,17 +130,30 @@ module Shoppe
     #
     # @return [String]
     def default_image
-      default_image = self.attachments.for('default_image')
+      default_image = self.attachments.first
       if self.parent_id? && default_image.blank?
-        self.parent.attachments.for('default_image')
+        self.parent.attachments.first
       else
         default_image
       end
     end
 
+    def selection_size
+      sizes = %w("XS S M L XL XXL 2X XXXL 3X XXXXL 4X")
+      self.variants
+          .stock_availability
+          .map { |e| {:key => e.variant_type, :value => e.name, :id => e.id} }
+          .uniq
+          .sort_by {|e| e[:value].to_s == e[:value].to_i.to_s ? e[:value] : sizes.index(e[:value]) || 0 } # check if integer or sort by index
+    end
+
+    def link_attachments
+      Shoppe::Attachment.where(parent_id: nil).update_all(parent_id: self.id)
+    end
+
     # Set attachment for the default_image role
     def default_image_file=(file)
-      self.attachments.build(:file => file, :role => 'default_image')
+      self.attachments.build(:file => file, :sort => '-1', :role => 'default_image')
     end
 
     # Search for products which include the given attributes and return an active record

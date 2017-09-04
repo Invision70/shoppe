@@ -8,6 +8,16 @@ module Shoppe
       config.assets.precompile += ['shoppe/sub.css', 'shoppe/printable.css']
     end
 
+    if Rails.env.development?
+      config.after_initialize do
+        Bullet.enable = true
+        Bullet.alert = false
+        Bullet.bullet_logger = true
+        Bullet.console = true
+        Bullet.rails_logger = true
+      end
+    end
+
     # We don't want any automatic generators in the engine.
     config.generators do |g|
       g.orm             :active_record

@@ -49,4 +49,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "yard-activerecord", "~> 0"
   s.add_development_dependency "markdown", "~> 1.0"
   s.add_development_dependency "factory_girl_rails", "~> 4.5"
+  s.add_development_dependency "bullet", "~> 5.6"
 end

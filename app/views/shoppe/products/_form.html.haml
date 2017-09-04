@@ -42,29 +42,7 @@
               %td= select_tag 'product[product_attributes_array][][value]', options_for_select(attribute.last {|p| [p, p] }, :selected => product_attributes(f.object) ? product_attributes(f.object)[attribute.first] : nil), :multiple => product_attribute_param(attribute.first, :multiple), :include_blank => true, :class => 'chosen-with-deselect attribute-selectable', :data => {:placeholder => '-- no selected --'}
 
   = field_set_tag t('shoppe.products.attachments') do
-    .splitContainer
-      %dl.half
-        %dt= f.label "attachments[default_image][file]", t('shoppe.products.default_image')
-        %dd
-          = attachment_preview @product.default_image
-          %p= f.file_field "attachments[default_image][file]"
-          = f.hidden_field "attachments[default_image][role]", value: "default_image"
-          = f.hidden_field "attachments[default_image][parent_id]", value: @product.id
-    .clearfix
-    %hr
-    .splitContainer.extraAttachments
-      - @product.attachments.each do |attachment|
-        - unless attachment.role == 'default_image'
-          %dl
-            %dd
-              = attachment_preview attachment
-      %dl
-        %dd
-          = attachment_preview nil, hide_if_blank: false
-          %p= f.file_field "attachments[extra][file]", :multiple => true
-          = f.hidden_field "attachments[extra][parent_type]", value: "Shoppe::Product"
-          = f.hidden_field "attachments[extra][parent_id]", value: @product.id
-
+    %Uploader#files-uploader{'data-resource': product_attachment_path(@product.id || -1)}
 
   = field_set_tag t('shoppe.products.pricing') do
     .splitContainer

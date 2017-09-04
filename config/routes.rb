@@ -9,6 +9,9 @@ Shoppe::Engine.routes.draw do
   get "/customers/login/:id", :to => "customers#login", :as => 'login_customer'
   post "/customers/confirm/:id", :to => "customers#confirm", :as => 'confirm_customer'
 
+  resources :product_attachments, :only => [:destroy, :update, :show]
+  post "/product_attachments/:id", :to => "product_attachments#update"
+
   resources :product_categories do
     resources :localisations, controller: "product_category_localisations"
 
