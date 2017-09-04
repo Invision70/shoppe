@@ -2,7 +2,7 @@
   <div>
     <draggable class="attachments" v-model="attachments" :options="{group:'people'}" v-on:change="draggableChange">
       <div class="attachment" v-for="attachment in attachments">
-        <img :src="'http://localhost:9292/'+attachment.file.thumb.url" class="attachment__item">
+        <img :src="'/'+attachment.file.thumb.url" class="attachment__item">
         <a class="attachment__delete" type="button" v-on:click.prevent="remove(attachment)">remove</a>
       </div>
     </draggable>
